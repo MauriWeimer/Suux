@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e877fa2d11ba4880ad57934116c9fa3f" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.ART" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Banks" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Calendars" Width="1.5" PointX="7.5" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Categorys" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Companys" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Concept_types" Width="1.5" PointX="0.75" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Concepts" Width="1.5" PointX="3" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Employees" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Employees_liquidated" Width="1.5" PointX="7.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Employees_liquidated_concepts" Width="1.5" PointX="9.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Fixed_schedules" Width="1.5" PointX="3" PointY="31.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Formulas" Width="1.5" PointX="0.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Holidays" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Labor_unions" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Liquidation_fixed_datas" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Liquidation_types" Width="1.5" PointX="3" PointY="41.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Provinces" Width="1.5" PointX="0.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Schedules" Width="1.5" PointX="9.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Sexs" Width="1.5" PointX="3" PointY="39.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Social_works" Width="1.5" PointX="3" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Turns" Width="1.5" PointX="7.5" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Users" Width="1.5" PointX="7.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_ART_Provinces" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Employees_ART" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Banks_Provinces" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Liquidation_fixed_datas_Banks" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Calendars_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Schedules_Calendars" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Employees_Categorys" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Companys_Provinces" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Concepts_Concept_types" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Concepts_Formulas" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Employees_Fixed_schedules" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Employees_Labor_unions" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Employees_liquidated_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Employees_Provinces" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Employees_Sexs" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Employees_Social_works" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Employees_liquidated_concepts_Employees_liquidated" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Employees_liquidated_Liquidation_fixed_datas" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Schedules_Fixed_schedules" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Labor_unions_Provinces" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Liquidation_fixed_datas_Liquidation_types" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Social_works_Provinces" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Schedules_Turns" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.Employees_concepts" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

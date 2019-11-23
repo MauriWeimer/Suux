@@ -1,0 +1,27 @@
+﻿<Window x:Class="WPFApp.Views.Reports.ReportV"
+        xmlns:cr="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer"
+        xmlns:helper="clr-namespace:WPFApp.Helper"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFApp.Views.Reports"
+        mc:Ignorable="d"
+        
+        DataContext="{Binding ReportVM, Source={StaticResource VMLocator}}"
+        Title="{Binding Path=Title, Mode=OneTime}" 
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Height="700"
+        Width="1200">
+    <cr:CrystalReportsViewer ShowPrintButton="False"
+                             ShowExportButton="False"
+                             ToggleSidePanel="None"
+                             ShowRefreshButton="False"
+                             ShowToggleSidePanelButton="False"
+                             ShowCopyButton="False"
+                             ShowSearchTextButton="False"
+                             ShowOpenFileButton="False"
+                             helper:CustomProperties.ReportSource="{Binding Path=DataContext.Report, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=FrameworkElement}}"/>
+</Window>

@@ -1,0 +1,33 @@
+﻿<Application x:Class="WPFApp.App"
+             xmlns:locator="clr-namespace:ViewModel.Locator;assembly=ViewModel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WPFApp"
+             StartupUri="Views/LoginV.xaml">
+    <Application.Resources>    
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/Dictionaries/CalendarStyle.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Dictionaries/TabStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!--LOCATOR-->
+            <locator:Locator x:Key="VMLocator" />
+
+            <!--COLORS-->
+            <SolidColorBrush x:Key="DataGridSelection" Color="#BDBDBD" Opacity="0.35"/>
+            <SolidColorBrush x:Key="DataGridSelectionForeground" Color="#424242"/>
+            
+            <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#D32F2F"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#2D2D2D"/>
+            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#2D2D2D"/>
+            <SolidColorBrush x:Key="BorderContent" Color="#9E9E9E"/>
+            <SolidColorBrush x:Key="MaterialDesignFlatButtonClick" Color="#EBEBEB"/>
+
+            <!--CONVERTER-->
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

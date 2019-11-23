@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="WPFApp.Views.UserControls.Dialogs.ConfirmUC"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFApp.Views.UserControls.Dialogs"
+             mc:Ignorable="d" 
+             Width="250"
+             Height="125">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal">
+            <Button Content="ACEPTAR"
+                    Width="125"
+                    Height="45"
+                    Foreground="{StaticResource SecondaryAccentBrush}"
+                    Command="{Binding AcceptDialog}"
+                    Click="CloseDialog"
+                    Style="{StaticResource MaterialDesignFlatButton}">                
+            </Button>
+            <Button Content="CANCELAR"
+                    Width="125"
+                    Height="45"
+                    Foreground="{StaticResource SecondaryAccentBrush}" 
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                    Style="{StaticResource MaterialDesignFlatButton}">
+            </Button>
+        </StackPanel>                    
+        <TextBlock Text="{Binding ConfirmDialogText, Mode=OneTime}"
+                   TextAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontWeight="SemiBold"
+                   FontSize="13"/>
+    </DockPanel>
+</UserControl>

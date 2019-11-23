@@ -1,0 +1,1895 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ART">
+          <Key>
+            <PropertyRef Name="art_id" />
+          </Key>
+          <Property Name="art_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="art" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="street" Type="nvarchar" MaxLength="20" />
+          <Property Name="street_n" Type="int" />
+          <Property Name="floor" Type="int" />
+          <Property Name="departament" Type="varchar" MaxLength="2" />
+          <Property Name="province_id" Type="int" />
+          <Property Name="city" Type="nvarchar" MaxLength="20" />
+          <Property Name="postal_code" Type="int" />
+          <Property Name="phone_n" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Banks">
+          <Key>
+            <PropertyRef Name="bank_id" />
+          </Key>
+          <Property Name="bank_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bank" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="street" Type="nvarchar" MaxLength="20" />
+          <Property Name="street_n" Type="int" />
+          <Property Name="floor" Type="int" />
+          <Property Name="departament" Type="varchar" MaxLength="2" />
+          <Property Name="province_id" Type="int" />
+          <Property Name="city" Type="nvarchar" MaxLength="20" />
+          <Property Name="postal_code" Type="int" />
+          <Property Name="phone_n" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Calendars">
+          <Key>
+            <PropertyRef Name="calendar_id" />
+          </Key>
+          <Property Name="calendar_id" Type="int" Nullable="false" />
+          <Property Name="file_n" Type="int" Nullable="false" />
+          <Property Name="month" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categorys">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="125" />
+          <Property Name="basic_salary" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="amount_extra_1" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="amount_extra_2" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="amount_extra_3" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="amount_extra_4" Type="decimal" Precision="9" Scale="2" />
+        </EntityType>
+        <EntityType Name="Companys">
+          <Key>
+            <PropertyRef Name="company_id" />
+          </Key>
+          <Property Name="company_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="company" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="street" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="street_n" Type="int" Nullable="false" />
+          <Property Name="province_id" Type="int" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="postal_code" Type="int" Nullable="false" />
+          <Property Name="cuit_n" Type="bigint" Nullable="false" />
+          <Property Name="phone_n" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Concept_types">
+          <Key>
+            <PropertyRef Name="concept_type_id" />
+          </Key>
+          <Property Name="concept_type_id" Type="int" Nullable="false" />
+          <Property Name="concept_type" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="concept_type_initials" Type="varchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Concepts">
+          <Key>
+            <PropertyRef Name="concept_id" />
+          </Key>
+          <Property Name="concept_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sorted_concept_id" Type="int" Nullable="false" />
+          <Property Name="concept" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="concept_type_id" Type="int" Nullable="false" />
+          <Property Name="percentage" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="amount" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="formula_id" Type="int" Nullable="false" />
+          <Property Name="common" Type="bit" Nullable="false" />
+          <Property Name="quantity_editable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="file_n" />
+          </Key>
+          <Property Name="file_n" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="birthdate" Type="date" Nullable="false" />
+          <Property Name="sex_id" Type="int" />
+          <Property Name="document_n" Type="bigint" Nullable="false" />
+          <Property Name="cuil_n" Type="bigint" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="35" />
+          <Property Name="phone_n" Type="bigint" />
+          <Property Name="province_id" Type="int" />
+          <Property Name="city" Type="nvarchar" MaxLength="20" />
+          <Property Name="postal_code" Type="int" />
+          <Property Name="street" Type="nvarchar" MaxLength="20" />
+          <Property Name="street_n" Type="int" />
+          <Property Name="floor" Type="int" />
+          <Property Name="departament" Type="varchar" MaxLength="2" />
+          <Property Name="prof_calification" Type="nvarchar" MaxLength="30" />
+          <Property Name="basic_salary" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="entry_date" Type="date" Nullable="false" />
+          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="social_work_id" Type="int" Nullable="false" />
+          <Property Name="labor_union_id" Type="int" Nullable="false" />
+          <Property Name="art_id" Type="int" Nullable="false" />
+          <Property Name="low_date" Type="date" />
+          <Property Name="state" Type="bit" Nullable="false" />
+          <Property Name="fixed_schedule_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Employees_liquidated">
+          <Key>
+            <PropertyRef Name="employee_liquidated_id" />
+          </Key>
+          <Property Name="employee_liquidated_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="liquidation_fixed_data_id" Type="int" Nullable="false" />
+          <Property Name="file_n" Type="int" Nullable="false" />
+          <Property Name="rem_total" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="no_rem_total" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="ded_total" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="basic_salary" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="gross_salary" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="net_salary" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="issue" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employees_liquidated_concepts">
+          <Key>
+            <PropertyRef Name="employee_liquidated_id" />
+            <PropertyRef Name="sorted_concept_id" />
+          </Key>
+          <Property Name="employee_liquidated_id" Type="int" Nullable="false" />
+          <Property Name="sorted_concept_id" Type="int" Nullable="false" />
+          <Property Name="concept" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="quantity" Type="nvarchar" MaxLength="15" />
+          <Property Name="rem" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="no_rem" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="ded" Type="decimal" Precision="9" Scale="2" />
+        </EntityType>
+        <EntityType Name="Employees-concepts">
+          <Key>
+            <PropertyRef Name="file_n" />
+            <PropertyRef Name="concept_id" />
+          </Key>
+          <Property Name="file_n" Type="int" Nullable="false" />
+          <Property Name="concept_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fixed_schedules">
+          <Key>
+            <PropertyRef Name="fixed_schedule_id" />
+          </Key>
+          <Property Name="fixed_schedule_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lu_m_d" Type="time" Precision="0" />
+          <Property Name="lu_m_h" Type="time" Precision="0" />
+          <Property Name="lu_l_d" Type="time" Precision="0" />
+          <Property Name="lu_l_h" Type="time" Precision="0" />
+          <Property Name="ma_m_d" Type="time" Precision="0" />
+          <Property Name="ma_m_h" Type="time" Precision="0" />
+          <Property Name="ma_l_d" Type="time" Precision="0" />
+          <Property Name="ma_l_h" Type="time" Precision="0" />
+          <Property Name="mi_m_d" Type="time" Precision="0" />
+          <Property Name="mi_m_h" Type="time" Precision="0" />
+          <Property Name="mi_l_d" Type="time" Precision="0" />
+          <Property Name="mi_l_h" Type="time" Precision="0" />
+          <Property Name="ju_m_d" Type="time" Precision="0" />
+          <Property Name="ju_m_h" Type="time" Precision="0" />
+          <Property Name="ju_l_d" Type="time" Precision="0" />
+          <Property Name="ju_l_h" Type="time" Precision="0" />
+          <Property Name="vi_m_d" Type="time" Precision="0" />
+          <Property Name="vi_m_h" Type="time" Precision="0" />
+          <Property Name="vi_l_d" Type="time" Precision="0" />
+          <Property Name="vi_l_h" Type="time" Precision="0" />
+          <Property Name="sa_m_d" Type="time" Precision="0" />
+          <Property Name="sa_m_h" Type="time" Precision="0" />
+          <Property Name="sa_l_d" Type="time" Precision="0" />
+          <Property Name="sa_l_h" Type="time" Precision="0" />
+          <Property Name="do_m_d" Type="time" Precision="0" />
+          <Property Name="do_m_h" Type="time" Precision="0" />
+          <Property Name="do_l_d" Type="time" Precision="0" />
+          <Property Name="do_l_h" Type="time" Precision="0" />
+        </EntityType>
+        <EntityType Name="Formulas">
+          <Key>
+            <PropertyRef Name="formula_id" />
+          </Key>
+          <Property Name="formula_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="formula" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="quantity" Type="nvarchar" MaxLength="100" />
+          <Property Name="quantity_leyend" Type="nvarchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="Holidays">
+          <Key>
+            <PropertyRef Name="month" />
+            <PropertyRef Name="day" />
+          </Key>
+          <Property Name="month" Type="date" Nullable="false" />
+          <Property Name="day" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Labor_unions">
+          <Key>
+            <PropertyRef Name="labor_union_id" />
+          </Key>
+          <Property Name="labor_union_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="labor_union" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="street" Type="nvarchar" MaxLength="20" />
+          <Property Name="street_n" Type="int" />
+          <Property Name="floor" Type="int" />
+          <Property Name="departament" Type="varchar" MaxLength="2" />
+          <Property Name="province_id" Type="int" />
+          <Property Name="city" Type="nvarchar" MaxLength="20" />
+          <Property Name="postal_code" Type="int" />
+          <Property Name="phone_n" Type="bigint" />
+          <Property Name="percentage_retention" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="amount_retention" Type="decimal" Precision="9" Scale="2" />
+        </EntityType>
+        <EntityType Name="Liquidation_fixed_datas">
+          <Key>
+            <PropertyRef Name="liquidation_fixed_data_id" />
+          </Key>
+          <Property Name="liquidation_fixed_data_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="period" Type="date" Nullable="false" />
+          <Property Name="liquidation_type_id" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="deposited_date" Type="date" />
+          <Property Name="bank_id" Type="int" />
+          <Property Name="deposited_period" Type="date" />
+        </EntityType>
+        <EntityType Name="Liquidation_types">
+          <Key>
+            <PropertyRef Name="liquidation_type_id" />
+          </Key>
+          <Property Name="liquidation_type_id" Type="int" Nullable="false" />
+          <Property Name="liquidation_type" Type="nvarchar" MaxLength="30" />
+          <Property Name="liquidation_type_initials" Type="varchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="Provinces">
+          <Key>
+            <PropertyRef Name="province_id" />
+          </Key>
+          <Property Name="province_id" Type="int" Nullable="false" />
+          <Property Name="province" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Schedules">
+          <Key>
+            <PropertyRef Name="calendar_id" />
+            <PropertyRef Name="day" />
+          </Key>
+          <Property Name="calendar_id" Type="int" Nullable="false" />
+          <Property Name="day" Type="int" Nullable="false" />
+          <Property Name="turn_id" Type="int" />
+          <Property Name="fixed_schedule_id" Type="int" />
+          <Property Name="nwork_day" Type="varchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Sexs">
+          <Key>
+            <PropertyRef Name="sex_id" />
+          </Key>
+          <Property Name="sex_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sex" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Social_works">
+          <Key>
+            <PropertyRef Name="social_work_id" />
+          </Key>
+          <Property Name="social_work_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="social_work" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="street" Type="nvarchar" MaxLength="20" />
+          <Property Name="street_n" Type="int" />
+          <Property Name="floor" Type="int" />
+          <Property Name="departament" Type="varchar" MaxLength="2" />
+          <Property Name="province_id" Type="int" />
+          <Property Name="city" Type="nvarchar" MaxLength="20" />
+          <Property Name="postal_code" Type="int" />
+          <Property Name="phone_n" Type="bigint" />
+          <Property Name="percentage_retention" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="amount_retention" Type="decimal" Precision="9" Scale="2" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Turns">
+          <Key>
+            <PropertyRef Name="turn_id" />
+          </Key>
+          <Property Name="turn_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="morning_d" Type="time" Precision="0" />
+          <Property Name="morning_h" Type="time" Precision="0" />
+          <Property Name="late_d" Type="time" Precision="0" />
+          <Property Name="late_h" Type="time" Precision="0" />
+          <Property Name="color" Type="nvarchar" MaxLength="9" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="user_name" />
+          </Key>
+          <Property Name="user_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="user_password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ART_Provinces">
+          <End Role="Provinces" Type="Self.Provinces" Multiplicity="0..1" />
+          <End Role="ART" Type="Self.ART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provinces">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="ART">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_b_employees_concepts_Concepts">
+          <End Role="Concepts" Type="Self.Concepts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employees-concepts" Type="Self.Employees-concepts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concepts">
+              <PropertyRef Name="concept_id" />
+            </Principal>
+            <Dependent Role="Employees-concepts">
+              <PropertyRef Name="concept_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_b_employees_concepts_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Employees-concepts" Type="Self.Employees-concepts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="file_n" />
+            </Principal>
+            <Dependent Role="Employees-concepts">
+              <PropertyRef Name="file_n" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Banks_Provinces">
+          <End Role="Provinces" Type="Self.Provinces" Multiplicity="0..1" />
+          <End Role="Banks" Type="Self.Banks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provinces">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Banks">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calendars_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Calendars" Type="Self.Calendars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="file_n" />
+            </Principal>
+            <Dependent Role="Calendars">
+              <PropertyRef Name="file_n" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Companys_Provinces">
+          <End Role="Provinces" Type="Self.Provinces" Multiplicity="1" />
+          <End Role="Companys" Type="Self.Companys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provinces">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Companys">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Concepts_Concept_types">
+          <End Role="Concept_types" Type="Self.Concept_types" Multiplicity="1" />
+          <End Role="Concepts" Type="Self.Concepts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concept_types">
+              <PropertyRef Name="concept_type_id" />
+            </Principal>
+            <Dependent Role="Concepts">
+              <PropertyRef Name="concept_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Concepts_Formulas">
+          <End Role="Formulas" Type="Self.Formulas" Multiplicity="1" />
+          <End Role="Concepts" Type="Self.Concepts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formulas">
+              <PropertyRef Name="formula_id" />
+            </Principal>
+            <Dependent Role="Concepts">
+              <PropertyRef Name="formula_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_ART">
+          <End Role="ART" Type="Self.ART" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ART">
+              <PropertyRef Name="art_id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="art_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Categorys">
+          <End Role="Categorys" Type="Self.Categorys" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorys">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Fixed_schedules">
+          <End Role="Fixed_schedules" Type="Self.Fixed_schedules" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fixed_schedules">
+              <PropertyRef Name="fixed_schedule_id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="fixed_schedule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Labor_unions">
+          <End Role="Labor_unions" Type="Self.Labor_unions" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Labor_unions">
+              <PropertyRef Name="labor_union_id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="labor_union_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_liquidated_concepts_Employees_liquidated">
+          <End Role="Employees_liquidated" Type="Self.Employees_liquidated" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employees_liquidated_concepts" Type="Self.Employees_liquidated_concepts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees_liquidated">
+              <PropertyRef Name="employee_liquidated_id" />
+            </Principal>
+            <Dependent Role="Employees_liquidated_concepts">
+              <PropertyRef Name="employee_liquidated_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_liquidated_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Employees_liquidated" Type="Self.Employees_liquidated" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="file_n" />
+            </Principal>
+            <Dependent Role="Employees_liquidated">
+              <PropertyRef Name="file_n" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_liquidated_Liquidation_fixed_datas">
+          <End Role="Liquidation_fixed_datas" Type="Self.Liquidation_fixed_datas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employees_liquidated" Type="Self.Employees_liquidated" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Liquidation_fixed_datas">
+              <PropertyRef Name="liquidation_fixed_data_id" />
+            </Principal>
+            <Dependent Role="Employees_liquidated">
+              <PropertyRef Name="liquidation_fixed_data_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Provinces">
+          <End Role="Provinces" Type="Self.Provinces" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provinces">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Sexs">
+          <End Role="Sexs" Type="Self.Sexs" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexs">
+              <PropertyRef Name="sex_id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="sex_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Social_works">
+          <End Role="Social_works" Type="Self.Social_works" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Social_works">
+              <PropertyRef Name="social_work_id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="social_work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Labor_unions_Provinces">
+          <End Role="Provinces" Type="Self.Provinces" Multiplicity="0..1" />
+          <End Role="Labor_unions" Type="Self.Labor_unions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provinces">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Labor_unions">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liquidation_fixed_datas_Banks">
+          <End Role="Banks" Type="Self.Banks" Multiplicity="0..1" />
+          <End Role="Liquidation_fixed_datas" Type="Self.Liquidation_fixed_datas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banks">
+              <PropertyRef Name="bank_id" />
+            </Principal>
+            <Dependent Role="Liquidation_fixed_datas">
+              <PropertyRef Name="bank_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liquidation_fixed_datas_Liquidation_types">
+          <End Role="Liquidation_types" Type="Self.Liquidation_types" Multiplicity="1" />
+          <End Role="Liquidation_fixed_datas" Type="Self.Liquidation_fixed_datas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Liquidation_types">
+              <PropertyRef Name="liquidation_type_id" />
+            </Principal>
+            <Dependent Role="Liquidation_fixed_datas">
+              <PropertyRef Name="liquidation_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedules_Calendars">
+          <End Role="Calendars" Type="Self.Calendars" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Calendars">
+              <PropertyRef Name="calendar_id" />
+            </Principal>
+            <Dependent Role="Schedules">
+              <PropertyRef Name="calendar_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedules_Fixed_schedules">
+          <End Role="Fixed_schedules" Type="Self.Fixed_schedules" Multiplicity="0..1" />
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fixed_schedules">
+              <PropertyRef Name="fixed_schedule_id" />
+            </Principal>
+            <Dependent Role="Schedules">
+              <PropertyRef Name="fixed_schedule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedules_Turns">
+          <End Role="Turns" Type="Self.Turns" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turns">
+              <PropertyRef Name="turn_id" />
+            </Principal>
+            <Dependent Role="Schedules">
+              <PropertyRef Name="turn_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Social_works_Provinces">
+          <End Role="Provinces" Type="Self.Provinces" Multiplicity="0..1" />
+          <End Role="Social_works" Type="Self.Social_works" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provinces">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Social_works">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="ART" EntityType="Self.ART" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Banks" EntityType="Self.Banks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Calendars" EntityType="Self.Calendars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categorys" EntityType="Self.Categorys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Companys" EntityType="Self.Companys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Concept_types" EntityType="Self.Concept_types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Concepts" EntityType="Self.Concepts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees_liquidated" EntityType="Self.Employees_liquidated" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees_liquidated_concepts" EntityType="Self.Employees_liquidated_concepts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees-concepts" EntityType="Self.Employees-concepts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fixed_schedules" EntityType="Self.Fixed_schedules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Formulas" EntityType="Self.Formulas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Holidays" EntityType="Self.Holidays" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Labor_unions" EntityType="Self.Labor_unions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Liquidation_fixed_datas" EntityType="Self.Liquidation_fixed_datas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Liquidation_types" EntityType="Self.Liquidation_types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provinces" EntityType="Self.Provinces" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sexs" EntityType="Self.Sexs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Social_works" EntityType="Self.Social_works" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Turns" EntityType="Self.Turns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ART_Provinces" Association="Self.FK_ART_Provinces">
+            <End Role="Provinces" EntitySet="Provinces" />
+            <End Role="ART" EntitySet="ART" />
+          </AssociationSet>
+          <AssociationSet Name="FK_b_employees_concepts_Concepts" Association="Self.FK_b_employees_concepts_Concepts">
+            <End Role="Concepts" EntitySet="Concepts" />
+            <End Role="Employees-concepts" EntitySet="Employees-concepts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_b_employees_concepts_Employees" Association="Self.FK_b_employees_concepts_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Employees-concepts" EntitySet="Employees-concepts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Banks_Provinces" Association="Self.FK_Banks_Provinces">
+            <End Role="Provinces" EntitySet="Provinces" />
+            <End Role="Banks" EntitySet="Banks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calendars_Employees" Association="Self.FK_Calendars_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Calendars" EntitySet="Calendars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Companys_Provinces" Association="Self.FK_Companys_Provinces">
+            <End Role="Provinces" EntitySet="Provinces" />
+            <End Role="Companys" EntitySet="Companys" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Concepts_Concept_types" Association="Self.FK_Concepts_Concept_types">
+            <End Role="Concept_types" EntitySet="Concept_types" />
+            <End Role="Concepts" EntitySet="Concepts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Concepts_Formulas" Association="Self.FK_Concepts_Formulas">
+            <End Role="Formulas" EntitySet="Formulas" />
+            <End Role="Concepts" EntitySet="Concepts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_ART" Association="Self.FK_Employees_ART">
+            <End Role="ART" EntitySet="ART" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Categorys" Association="Self.FK_Employees_Categorys">
+            <End Role="Categorys" EntitySet="Categorys" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Fixed_schedules" Association="Self.FK_Employees_Fixed_schedules">
+            <End Role="Fixed_schedules" EntitySet="Fixed_schedules" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Labor_unions" Association="Self.FK_Employees_Labor_unions">
+            <End Role="Labor_unions" EntitySet="Labor_unions" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_liquidated_concepts_Employees_liquidated" Association="Self.FK_Employees_liquidated_concepts_Employees_liquidated">
+            <End Role="Employees_liquidated" EntitySet="Employees_liquidated" />
+            <End Role="Employees_liquidated_concepts" EntitySet="Employees_liquidated_concepts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_liquidated_Employees" Association="Self.FK_Employees_liquidated_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Employees_liquidated" EntitySet="Employees_liquidated" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_liquidated_Liquidation_fixed_datas" Association="Self.FK_Employees_liquidated_Liquidation_fixed_datas">
+            <End Role="Liquidation_fixed_datas" EntitySet="Liquidation_fixed_datas" />
+            <End Role="Employees_liquidated" EntitySet="Employees_liquidated" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Provinces" Association="Self.FK_Employees_Provinces">
+            <End Role="Provinces" EntitySet="Provinces" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Sexs" Association="Self.FK_Employees_Sexs">
+            <End Role="Sexs" EntitySet="Sexs" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Social_works" Association="Self.FK_Employees_Social_works">
+            <End Role="Social_works" EntitySet="Social_works" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Labor_unions_Provinces" Association="Self.FK_Labor_unions_Provinces">
+            <End Role="Provinces" EntitySet="Provinces" />
+            <End Role="Labor_unions" EntitySet="Labor_unions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liquidation_fixed_datas_Banks" Association="Self.FK_Liquidation_fixed_datas_Banks">
+            <End Role="Banks" EntitySet="Banks" />
+            <End Role="Liquidation_fixed_datas" EntitySet="Liquidation_fixed_datas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liquidation_fixed_datas_Liquidation_types" Association="Self.FK_Liquidation_fixed_datas_Liquidation_types">
+            <End Role="Liquidation_types" EntitySet="Liquidation_types" />
+            <End Role="Liquidation_fixed_datas" EntitySet="Liquidation_fixed_datas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedules_Calendars" Association="Self.FK_Schedules_Calendars">
+            <End Role="Calendars" EntitySet="Calendars" />
+            <End Role="Schedules" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedules_Fixed_schedules" Association="Self.FK_Schedules_Fixed_schedules">
+            <End Role="Fixed_schedules" EntitySet="Fixed_schedules" />
+            <End Role="Schedules" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedules_Turns" Association="Self.FK_Schedules_Turns">
+            <End Role="Turns" EntitySet="Turns" />
+            <End Role="Schedules" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Social_works_Provinces" Association="Self.FK_Social_works_Provinces">
+            <End Role="Provinces" EntitySet="Provinces" />
+            <End Role="Social_works" EntitySet="Social_works" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ART">
+          <Key>
+            <PropertyRef Name="art_id" />
+          </Key>
+          <Property Name="art_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="art1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="street" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="street_n" Type="Int32" />
+          <Property Name="floor" Type="Int32" />
+          <Property Name="departament" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="province_id" Type="Int32" />
+          <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="postal_code" Type="Int32" />
+          <Property Name="phone_n" Type="Int64" />
+          <NavigationProperty Name="Provinces" Relationship="Self.FK_ART_Provinces" FromRole="ART" ToRole="Provinces" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_ART" FromRole="ART" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Banks">
+          <Key>
+            <PropertyRef Name="bank_id" />
+          </Key>
+          <Property Name="bank_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bank" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="street" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="street_n" Type="Int32" />
+          <Property Name="floor" Type="Int32" />
+          <Property Name="departament" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="province_id" Type="Int32" />
+          <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="postal_code" Type="Int32" />
+          <Property Name="phone_n" Type="Int64" />
+          <NavigationProperty Name="Provinces" Relationship="Self.FK_Banks_Provinces" FromRole="Banks" ToRole="Provinces" />
+          <NavigationProperty Name="Liquidation_fixed_datas" Relationship="Self.FK_Liquidation_fixed_datas_Banks" FromRole="Banks" ToRole="Liquidation_fixed_datas" />
+        </EntityType>
+        <EntityType Name="Calendars">
+          <Key>
+            <PropertyRef Name="calendar_id" />
+          </Key>
+          <Property Name="calendar_id" Type="Int32" Nullable="false" />
+          <Property Name="file_n" Type="Int32" Nullable="false" />
+          <Property Name="month" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Calendars_Employees" FromRole="Calendars" ToRole="Employees" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedules_Calendars" FromRole="Calendars" ToRole="Schedules" />
+        </EntityType>
+        <EntityType Name="Categorys">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="125" FixedLength="false" Unicode="true" />
+          <Property Name="basic_salary" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="amount_extra_1" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="amount_extra_2" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="amount_extra_3" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="amount_extra_4" Type="Decimal" Precision="9" Scale="2" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Categorys" FromRole="Categorys" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Companys">
+          <Key>
+            <PropertyRef Name="company_id" />
+          </Key>
+          <Property Name="company_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="company" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="street" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="street_n" Type="Int32" Nullable="false" />
+          <Property Name="province_id" Type="Int32" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="postal_code" Type="Int32" Nullable="false" />
+          <Property Name="cuit_n" Type="Int64" Nullable="false" />
+          <Property Name="phone_n" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Provinces" Relationship="Self.FK_Companys_Provinces" FromRole="Companys" ToRole="Provinces" />
+        </EntityType>
+        <EntityType Name="Concept_types">
+          <Key>
+            <PropertyRef Name="concept_type_id" />
+          </Key>
+          <Property Name="concept_type_id" Type="Int32" Nullable="false" />
+          <Property Name="concept_type" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="concept_type_initials" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Concepts" Relationship="Self.FK_Concepts_Concept_types" FromRole="Concept_types" ToRole="Concepts" />
+        </EntityType>
+        <EntityType Name="Concepts">
+          <Key>
+            <PropertyRef Name="concept_id" />
+          </Key>
+          <Property Name="concept_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sorted_concept_id" Type="Int32" Nullable="false" />
+          <Property Name="concept" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="concept_type_id" Type="Int32" Nullable="false" />
+          <Property Name="percentage" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="amount" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="formula_id" Type="Int32" Nullable="false" />
+          <Property Name="common" Type="Boolean" Nullable="false" />
+          <Property Name="quantity_editable" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Concept_types" Relationship="Self.FK_Concepts_Concept_types" FromRole="Concepts" ToRole="Concept_types" />
+          <NavigationProperty Name="Formulas" Relationship="Self.FK_Concepts_Formulas" FromRole="Concepts" ToRole="Formulas" />
+          <NavigationProperty Name="Employees" Relationship="Self.Employees_concepts" FromRole="Concepts" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="file_n" />
+          </Key>
+          <Property Name="file_n" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="sex_id" Type="Int32" />
+          <Property Name="document_n" Type="Int64" Nullable="false" />
+          <Property Name="cuil_n" Type="Int64" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="phone_n" Type="Int64" />
+          <Property Name="province_id" Type="Int32" />
+          <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="postal_code" Type="Int32" />
+          <Property Name="street" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="street_n" Type="Int32" />
+          <Property Name="floor" Type="Int32" />
+          <Property Name="departament" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="prof_calification" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="basic_salary" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="entry_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <Property Name="social_work_id" Type="Int32" Nullable="false" />
+          <Property Name="labor_union_id" Type="Int32" Nullable="false" />
+          <Property Name="art_id" Type="Int32" Nullable="false" />
+          <Property Name="low_date" Type="DateTime" Precision="0" />
+          <Property Name="state" Type="Boolean" Nullable="false" />
+          <Property Name="fixed_schedule_id" Type="Int32" />
+          <NavigationProperty Name="ART" Relationship="Self.FK_Employees_ART" FromRole="Employees" ToRole="ART" />
+          <NavigationProperty Name="Calendars" Relationship="Self.FK_Calendars_Employees" FromRole="Employees" ToRole="Calendars" />
+          <NavigationProperty Name="Categorys" Relationship="Self.FK_Employees_Categorys" FromRole="Employees" ToRole="Categorys" />
+          <NavigationProperty Name="Fixed_schedules" Relationship="Self.FK_Employees_Fixed_schedules" FromRole="Employees" ToRole="Fixed_schedules" />
+          <NavigationProperty Name="Labor_unions" Relationship="Self.FK_Employees_Labor_unions" FromRole="Employees" ToRole="Labor_unions" />
+          <NavigationProperty Name="Employees_liquidated" Relationship="Self.FK_Employees_liquidated_Employees" FromRole="Employees" ToRole="Employees_liquidated" />
+          <NavigationProperty Name="Provinces" Relationship="Self.FK_Employees_Provinces" FromRole="Employees" ToRole="Provinces" />
+          <NavigationProperty Name="Sexs" Relationship="Self.FK_Employees_Sexs" FromRole="Employees" ToRole="Sexs" />
+          <NavigationProperty Name="Social_works" Relationship="Self.FK_Employees_Social_works" FromRole="Employees" ToRole="Social_works" />
+          <NavigationProperty Name="Concepts" Relationship="Self.Employees_concepts" FromRole="Employees" ToRole="Concepts" />
+        </EntityType>
+        <EntityType Name="Employees_liquidated">
+          <Key>
+            <PropertyRef Name="employee_liquidated_id" />
+          </Key>
+          <Property Name="employee_liquidated_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="liquidation_fixed_data_id" Type="Int32" Nullable="false" />
+          <Property Name="file_n" Type="Int32" Nullable="false" />
+          <Property Name="rem_total" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="no_rem_total" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="ded_total" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="basic_salary" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="gross_salary" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="net_salary" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="issue" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_liquidated_Employees" FromRole="Employees_liquidated" ToRole="Employees" />
+          <NavigationProperty Name="Employees_liquidated_concepts" Relationship="Self.FK_Employees_liquidated_concepts_Employees_liquidated" FromRole="Employees_liquidated" ToRole="Employees_liquidated_concepts" />
+          <NavigationProperty Name="Liquidation_fixed_datas" Relationship="Self.FK_Employees_liquidated_Liquidation_fixed_datas" FromRole="Employees_liquidated" ToRole="Liquidation_fixed_datas" />
+        </EntityType>
+        <EntityType Name="Employees_liquidated_concepts">
+          <Key>
+            <PropertyRef Name="employee_liquidated_id" />
+            <PropertyRef Name="sorted_concept_id" />
+          </Key>
+          <Property Name="employee_liquidated_id" Type="Int32" Nullable="false" />
+          <Property Name="sorted_concept_id" Type="Int32" Nullable="false" />
+          <Property Name="concept" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="quantity" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="rem" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="no_rem" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="ded" Type="Decimal" Precision="9" Scale="2" />
+          <NavigationProperty Name="Employees_liquidated" Relationship="Self.FK_Employees_liquidated_concepts_Employees_liquidated" FromRole="Employees_liquidated_concepts" ToRole="Employees_liquidated" />
+        </EntityType>
+        <EntityType Name="Fixed_schedules">
+          <Key>
+            <PropertyRef Name="fixed_schedule_id" />
+          </Key>
+          <Property Name="fixed_schedule_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lu_m_d" Type="Time" Precision="0" />
+          <Property Name="lu_m_h" Type="Time" Precision="0" />
+          <Property Name="lu_l_d" Type="Time" Precision="0" />
+          <Property Name="lu_l_h" Type="Time" Precision="0" />
+          <Property Name="ma_m_d" Type="Time" Precision="0" />
+          <Property Name="ma_m_h" Type="Time" Precision="0" />
+          <Property Name="ma_l_d" Type="Time" Precision="0" />
+          <Property Name="ma_l_h" Type="Time" Precision="0" />
+          <Property Name="mi_m_d" Type="Time" Precision="0" />
+          <Property Name="mi_m_h" Type="Time" Precision="0" />
+          <Property Name="mi_l_d" Type="Time" Precision="0" />
+          <Property Name="mi_l_h" Type="Time" Precision="0" />
+          <Property Name="ju_m_d" Type="Time" Precision="0" />
+          <Property Name="ju_m_h" Type="Time" Precision="0" />
+          <Property Name="ju_l_d" Type="Time" Precision="0" />
+          <Property Name="ju_l_h" Type="Time" Precision="0" />
+          <Property Name="vi_m_d" Type="Time" Precision="0" />
+          <Property Name="vi_m_h" Type="Time" Precision="0" />
+          <Property Name="vi_l_d" Type="Time" Precision="0" />
+          <Property Name="vi_l_h" Type="Time" Precision="0" />
+          <Property Name="sa_m_d" Type="Time" Precision="0" />
+          <Property Name="sa_m_h" Type="Time" Precision="0" />
+          <Property Name="sa_l_d" Type="Time" Precision="0" />
+          <Property Name="sa_l_h" Type="Time" Precision="0" />
+          <Property Name="do_m_d" Type="Time" Precision="0" />
+          <Property Name="do_m_h" Type="Time" Precision="0" />
+          <Property Name="do_l_d" Type="Time" Precision="0" />
+          <Property Name="do_l_h" Type="Time" Precision="0" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Fixed_schedules" FromRole="Fixed_schedules" ToRole="Employees" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedules_Fixed_schedules" FromRole="Fixed_schedules" ToRole="Schedules" />
+        </EntityType>
+        <EntityType Name="Formulas">
+          <Key>
+            <PropertyRef Name="formula_id" />
+          </Key>
+          <Property Name="formula_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="formula" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="quantity" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="quantity_leyend" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Concepts" Relationship="Self.FK_Concepts_Formulas" FromRole="Formulas" ToRole="Concepts" />
+        </EntityType>
+        <EntityType Name="Holidays">
+          <Key>
+            <PropertyRef Name="month" />
+            <PropertyRef Name="day" />
+          </Key>
+          <Property Name="month" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="day" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Labor_unions">
+          <Key>
+            <PropertyRef Name="labor_union_id" />
+          </Key>
+          <Property Name="labor_union_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="labor_union" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="street" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="street_n" Type="Int32" />
+          <Property Name="floor" Type="Int32" />
+          <Property Name="departament" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="province_id" Type="Int32" />
+          <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="postal_code" Type="Int32" />
+          <Property Name="phone_n" Type="Int64" />
+          <Property Name="percentage_retention" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="amount_retention" Type="Decimal" Precision="9" Scale="2" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Labor_unions" FromRole="Labor_unions" ToRole="Employees" />
+          <NavigationProperty Name="Provinces" Relationship="Self.FK_Labor_unions_Provinces" FromRole="Labor_unions" ToRole="Provinces" />
+        </EntityType>
+        <EntityType Name="Liquidation_fixed_datas">
+          <Key>
+            <PropertyRef Name="liquidation_fixed_data_id" />
+          </Key>
+          <Property Name="liquidation_fixed_data_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="period" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="liquidation_type_id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="deposited_date" Type="DateTime" Precision="0" />
+          <Property Name="bank_id" Type="Int32" />
+          <Property Name="deposited_period" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Banks" Relationship="Self.FK_Liquidation_fixed_datas_Banks" FromRole="Liquidation_fixed_datas" ToRole="Banks" />
+          <NavigationProperty Name="Employees_liquidated" Relationship="Self.FK_Employees_liquidated_Liquidation_fixed_datas" FromRole="Liquidation_fixed_datas" ToRole="Employees_liquidated" />
+          <NavigationProperty Name="Liquidation_types" Relationship="Self.FK_Liquidation_fixed_datas_Liquidation_types" FromRole="Liquidation_fixed_datas" ToRole="Liquidation_types" />
+        </EntityType>
+        <EntityType Name="Liquidation_types">
+          <Key>
+            <PropertyRef Name="liquidation_type_id" />
+          </Key>
+          <Property Name="liquidation_type_id" Type="Int32" Nullable="false" />
+          <Property Name="liquidation_type" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="liquidation_type_initials" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Liquidation_fixed_datas" Relationship="Self.FK_Liquidation_fixed_datas_Liquidation_types" FromRole="Liquidation_types" ToRole="Liquidation_fixed_datas" />
+        </EntityType>
+        <EntityType Name="Provinces">
+          <Key>
+            <PropertyRef Name="province_id" />
+          </Key>
+          <Property Name="province_id" Type="Int32" Nullable="false" />
+          <Property Name="province" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ART" Relationship="Self.FK_ART_Provinces" FromRole="Provinces" ToRole="ART" />
+          <NavigationProperty Name="Banks" Relationship="Self.FK_Banks_Provinces" FromRole="Provinces" ToRole="Banks" />
+          <NavigationProperty Name="Companys" Relationship="Self.FK_Companys_Provinces" FromRole="Provinces" ToRole="Companys" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Provinces" FromRole="Provinces" ToRole="Employees" />
+          <NavigationProperty Name="Labor_unions" Relationship="Self.FK_Labor_unions_Provinces" FromRole="Provinces" ToRole="Labor_unions" />
+          <NavigationProperty Name="Social_works" Relationship="Self.FK_Social_works_Provinces" FromRole="Provinces" ToRole="Social_works" />
+        </EntityType>
+        <EntityType Name="Schedules">
+          <Key>
+            <PropertyRef Name="calendar_id" />
+            <PropertyRef Name="day" />
+          </Key>
+          <Property Name="calendar_id" Type="Int32" Nullable="false" />
+          <Property Name="day" Type="Int32" Nullable="false" />
+          <Property Name="turn_id" Type="Int32" />
+          <Property Name="fixed_schedule_id" Type="Int32" />
+          <Property Name="nwork_day" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Calendars" Relationship="Self.FK_Schedules_Calendars" FromRole="Schedules" ToRole="Calendars" />
+          <NavigationProperty Name="Fixed_schedules" Relationship="Self.FK_Schedules_Fixed_schedules" FromRole="Schedules" ToRole="Fixed_schedules" />
+          <NavigationProperty Name="Turns" Relationship="Self.FK_Schedules_Turns" FromRole="Schedules" ToRole="Turns" />
+        </EntityType>
+        <EntityType Name="Sexs">
+          <Key>
+            <PropertyRef Name="sex_id" />
+          </Key>
+          <Property Name="sex_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sex" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Sexs" FromRole="Sexs" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Social_works">
+          <Key>
+            <PropertyRef Name="social_work_id" />
+          </Key>
+          <Property Name="social_work_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="social_work" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="street" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="street_n" Type="Int32" />
+          <Property Name="floor" Type="Int32" />
+          <Property Name="departament" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="province_id" Type="Int32" />
+          <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="postal_code" Type="Int32" />
+          <Property Name="phone_n" Type="Int64" />
+          <Property Name="percentage_retention" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="amount_retention" Type="Decimal" Precision="9" Scale="2" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Social_works" FromRole="Social_works" ToRole="Employees" />
+          <NavigationProperty Name="Provinces" Relationship="Self.FK_Social_works_Provinces" FromRole="Social_works" ToRole="Provinces" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Turns">
+          <Key>
+            <PropertyRef Name="turn_id" />
+          </Key>
+          <Property Name="turn_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="morning_d" Type="Time" Precision="0" />
+          <Property Name="morning_h" Type="Time" Precision="0" />
+          <Property Name="late_d" Type="Time" Precision="0" />
+          <Property Name="late_h" Type="Time" Precision="0" />
+          <Property Name="color" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedules_Turns" FromRole="Turns" ToRole="Schedules" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="user_name" />
+          </Key>
+          <Property Name="user_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="user_password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ART_Provinces">
+          <End Role="Provinces" Type="Self.Provinces" Multiplicity="0..1" />
+          <End Role="ART" Type="Self.ART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provinces">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="ART">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_ART">
+          <End Role="ART" Type="Self.ART" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ART">
+              <PropertyRef Name="art_id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="art_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Banks_Provinces">
+          <End Role="Provinces" Type="Self.Provinces" Multiplicity="0..1" />
+          <End Role="Banks" Type="Self.Banks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provinces">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Banks">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liquidation_fixed_datas_Banks">
+          <End Role="Banks" Type="Self.Banks" Multiplicity="0..1" />
+          <End Role="Liquidation_fixed_datas" Type="Self.Liquidation_fixed_datas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banks">
+              <PropertyRef Name="bank_id" />
+            </Principal>
+            <Dependent Role="Liquidation_fixed_datas">
+              <PropertyRef Name="bank_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calendars_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Calendars" Type="Self.Calendars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="file_n" />
+            </Principal>
+            <Dependent Role="Calendars">
+              <PropertyRef Name="file_n" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedules_Calendars">
+          <End Role="Calendars" Type="Self.Calendars" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Calendars">
+              <PropertyRef Name="calendar_id" />
+            </Principal>
+            <Dependent Role="Schedules">
+              <PropertyRef Name="calendar_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Categorys">
+          <End Role="Categorys" Type="Self.Categorys" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorys">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Companys_Provinces">
+          <End Role="Provinces" Type="Self.Provinces" Multiplicity="1" />
+          <End Role="Companys" Type="Self.Companys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provinces">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Companys">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Concepts_Concept_types">
+          <End Role="Concept_types" Type="Self.Concept_types" Multiplicity="1" />
+          <End Role="Concepts" Type="Self.Concepts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concept_types">
+              <PropertyRef Name="concept_type_id" />
+            </Principal>
+            <Dependent Role="Concepts">
+              <PropertyRef Name="concept_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Concepts_Formulas">
+          <End Role="Formulas" Type="Self.Formulas" Multiplicity="1" />
+          <End Role="Concepts" Type="Self.Concepts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formulas">
+              <PropertyRef Name="formula_id" />
+            </Principal>
+            <Dependent Role="Concepts">
+              <PropertyRef Name="formula_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Fixed_schedules">
+          <End Role="Fixed_schedules" Type="Self.Fixed_schedules" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fixed_schedules">
+              <PropertyRef Name="fixed_schedule_id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="fixed_schedule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Labor_unions">
+          <End Role="Labor_unions" Type="Self.Labor_unions" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Labor_unions">
+              <PropertyRef Name="labor_union_id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="labor_union_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_liquidated_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Employees_liquidated" Type="Self.Employees_liquidated" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="file_n" />
+            </Principal>
+            <Dependent Role="Employees_liquidated">
+              <PropertyRef Name="file_n" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Provinces">
+          <End Role="Provinces" Type="Self.Provinces" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provinces">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Sexs">
+          <End Role="Sexs" Type="Self.Sexs" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexs">
+              <PropertyRef Name="sex_id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="sex_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Social_works">
+          <End Role="Social_works" Type="Self.Social_works" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Social_works">
+              <PropertyRef Name="social_work_id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="social_work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_liquidated_concepts_Employees_liquidated">
+          <End Role="Employees_liquidated" Type="Self.Employees_liquidated" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employees_liquidated_concepts" Type="Self.Employees_liquidated_concepts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees_liquidated">
+              <PropertyRef Name="employee_liquidated_id" />
+            </Principal>
+            <Dependent Role="Employees_liquidated_concepts">
+              <PropertyRef Name="employee_liquidated_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_liquidated_Liquidation_fixed_datas">
+          <End Role="Liquidation_fixed_datas" Type="Self.Liquidation_fixed_datas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employees_liquidated" Type="Self.Employees_liquidated" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Liquidation_fixed_datas">
+              <PropertyRef Name="liquidation_fixed_data_id" />
+            </Principal>
+            <Dependent Role="Employees_liquidated">
+              <PropertyRef Name="liquidation_fixed_data_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedules_Fixed_schedules">
+          <End Role="Fixed_schedules" Type="Self.Fixed_schedules" Multiplicity="0..1" />
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fixed_schedules">
+              <PropertyRef Name="fixed_schedule_id" />
+            </Principal>
+            <Dependent Role="Schedules">
+              <PropertyRef Name="fixed_schedule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Labor_unions_Provinces">
+          <End Role="Provinces" Type="Self.Provinces" Multiplicity="0..1" />
+          <End Role="Labor_unions" Type="Self.Labor_unions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provinces">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Labor_unions">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Liquidation_fixed_datas_Liquidation_types">
+          <End Role="Liquidation_types" Type="Self.Liquidation_types" Multiplicity="1" />
+          <End Role="Liquidation_fixed_datas" Type="Self.Liquidation_fixed_datas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Liquidation_types">
+              <PropertyRef Name="liquidation_type_id" />
+            </Principal>
+            <Dependent Role="Liquidation_fixed_datas">
+              <PropertyRef Name="liquidation_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Social_works_Provinces">
+          <End Role="Provinces" Type="Self.Provinces" Multiplicity="0..1" />
+          <End Role="Social_works" Type="Self.Social_works" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provinces">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Social_works">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedules_Turns">
+          <End Role="Turns" Type="Self.Turns" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Schedules" Type="Self.Schedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turns">
+              <PropertyRef Name="turn_id" />
+            </Principal>
+            <Dependent Role="Schedules">
+              <PropertyRef Name="turn_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Employees_concepts">
+          <End Role="Concepts" Type="Self.Concepts" Multiplicity="*" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="SuuxEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ART" EntityType="Self.ART" />
+          <EntitySet Name="Banks" EntityType="Self.Banks" />
+          <EntitySet Name="Calendars" EntityType="Self.Calendars" />
+          <EntitySet Name="Categorys" EntityType="Self.Categorys" />
+          <EntitySet Name="Companys" EntityType="Self.Companys" />
+          <EntitySet Name="Concept_types" EntityType="Self.Concept_types" />
+          <EntitySet Name="Concepts" EntityType="Self.Concepts" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="Employees_liquidated" EntityType="Self.Employees_liquidated" />
+          <EntitySet Name="Employees_liquidated_concepts" EntityType="Self.Employees_liquidated_concepts" />
+          <EntitySet Name="Fixed_schedules" EntityType="Self.Fixed_schedules" />
+          <EntitySet Name="Formulas" EntityType="Self.Formulas" />
+          <EntitySet Name="Holidays" EntityType="Self.Holidays" />
+          <EntitySet Name="Labor_unions" EntityType="Self.Labor_unions" />
+          <EntitySet Name="Liquidation_fixed_datas" EntityType="Self.Liquidation_fixed_datas" />
+          <EntitySet Name="Liquidation_types" EntityType="Self.Liquidation_types" />
+          <EntitySet Name="Provinces" EntityType="Self.Provinces" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedules" />
+          <EntitySet Name="Sexs" EntityType="Self.Sexs" />
+          <EntitySet Name="Social_works" EntityType="Self.Social_works" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Turns" EntityType="Self.Turns" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_ART_Provinces" Association="Self.FK_ART_Provinces">
+            <End Role="Provinces" EntitySet="Provinces" />
+            <End Role="ART" EntitySet="ART" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_ART" Association="Self.FK_Employees_ART">
+            <End Role="ART" EntitySet="ART" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Banks_Provinces" Association="Self.FK_Banks_Provinces">
+            <End Role="Provinces" EntitySet="Provinces" />
+            <End Role="Banks" EntitySet="Banks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liquidation_fixed_datas_Banks" Association="Self.FK_Liquidation_fixed_datas_Banks">
+            <End Role="Banks" EntitySet="Banks" />
+            <End Role="Liquidation_fixed_datas" EntitySet="Liquidation_fixed_datas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calendars_Employees" Association="Self.FK_Calendars_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Calendars" EntitySet="Calendars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedules_Calendars" Association="Self.FK_Schedules_Calendars">
+            <End Role="Calendars" EntitySet="Calendars" />
+            <End Role="Schedules" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Categorys" Association="Self.FK_Employees_Categorys">
+            <End Role="Categorys" EntitySet="Categorys" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Companys_Provinces" Association="Self.FK_Companys_Provinces">
+            <End Role="Provinces" EntitySet="Provinces" />
+            <End Role="Companys" EntitySet="Companys" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Concepts_Concept_types" Association="Self.FK_Concepts_Concept_types">
+            <End Role="Concept_types" EntitySet="Concept_types" />
+            <End Role="Concepts" EntitySet="Concepts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Concepts_Formulas" Association="Self.FK_Concepts_Formulas">
+            <End Role="Formulas" EntitySet="Formulas" />
+            <End Role="Concepts" EntitySet="Concepts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Fixed_schedules" Association="Self.FK_Employees_Fixed_schedules">
+            <End Role="Fixed_schedules" EntitySet="Fixed_schedules" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Labor_unions" Association="Self.FK_Employees_Labor_unions">
+            <End Role="Labor_unions" EntitySet="Labor_unions" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_liquidated_Employees" Association="Self.FK_Employees_liquidated_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Employees_liquidated" EntitySet="Employees_liquidated" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Provinces" Association="Self.FK_Employees_Provinces">
+            <End Role="Provinces" EntitySet="Provinces" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Sexs" Association="Self.FK_Employees_Sexs">
+            <End Role="Sexs" EntitySet="Sexs" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Social_works" Association="Self.FK_Employees_Social_works">
+            <End Role="Social_works" EntitySet="Social_works" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_liquidated_concepts_Employees_liquidated" Association="Self.FK_Employees_liquidated_concepts_Employees_liquidated">
+            <End Role="Employees_liquidated" EntitySet="Employees_liquidated" />
+            <End Role="Employees_liquidated_concepts" EntitySet="Employees_liquidated_concepts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_liquidated_Liquidation_fixed_datas" Association="Self.FK_Employees_liquidated_Liquidation_fixed_datas">
+            <End Role="Liquidation_fixed_datas" EntitySet="Liquidation_fixed_datas" />
+            <End Role="Employees_liquidated" EntitySet="Employees_liquidated" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedules_Fixed_schedules" Association="Self.FK_Schedules_Fixed_schedules">
+            <End Role="Fixed_schedules" EntitySet="Fixed_schedules" />
+            <End Role="Schedules" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Labor_unions_Provinces" Association="Self.FK_Labor_unions_Provinces">
+            <End Role="Provinces" EntitySet="Provinces" />
+            <End Role="Labor_unions" EntitySet="Labor_unions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Liquidation_fixed_datas_Liquidation_types" Association="Self.FK_Liquidation_fixed_datas_Liquidation_types">
+            <End Role="Liquidation_types" EntitySet="Liquidation_types" />
+            <End Role="Liquidation_fixed_datas" EntitySet="Liquidation_fixed_datas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Social_works_Provinces" Association="Self.FK_Social_works_Provinces">
+            <End Role="Provinces" EntitySet="Provinces" />
+            <End Role="Social_works" EntitySet="Social_works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedules_Turns" Association="Self.FK_Schedules_Turns">
+            <End Role="Turns" EntitySet="Turns" />
+            <End Role="Schedules" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="Employees_concepts" Association="Self.Employees_concepts">
+            <End Role="Concepts" EntitySet="Concepts" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="SuuxEntities">
+          <EntitySetMapping Name="ART">
+            <EntityTypeMapping TypeName="Model.ART">
+              <MappingFragment StoreEntitySet="ART">
+                <ScalarProperty Name="art_id" ColumnName="art_id" />
+                <ScalarProperty Name="art1" ColumnName="art" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="street_n" ColumnName="street_n" />
+                <ScalarProperty Name="floor" ColumnName="floor" />
+                <ScalarProperty Name="departament" ColumnName="departament" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="phone_n" ColumnName="phone_n" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Banks">
+            <EntityTypeMapping TypeName="Model.Banks">
+              <MappingFragment StoreEntitySet="Banks">
+                <ScalarProperty Name="bank_id" ColumnName="bank_id" />
+                <ScalarProperty Name="bank" ColumnName="bank" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="street_n" ColumnName="street_n" />
+                <ScalarProperty Name="floor" ColumnName="floor" />
+                <ScalarProperty Name="departament" ColumnName="departament" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="phone_n" ColumnName="phone_n" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Calendars">
+            <EntityTypeMapping TypeName="Model.Calendars">
+              <MappingFragment StoreEntitySet="Calendars">
+                <ScalarProperty Name="calendar_id" ColumnName="calendar_id" />
+                <ScalarProperty Name="file_n" ColumnName="file_n" />
+                <ScalarProperty Name="month" ColumnName="month" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categorys">
+            <EntityTypeMapping TypeName="Model.Categorys">
+              <MappingFragment StoreEntitySet="Categorys">
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="basic_salary" ColumnName="basic_salary" />
+                <ScalarProperty Name="amount_extra_1" ColumnName="amount_extra_1" />
+                <ScalarProperty Name="amount_extra_2" ColumnName="amount_extra_2" />
+                <ScalarProperty Name="amount_extra_3" ColumnName="amount_extra_3" />
+                <ScalarProperty Name="amount_extra_4" ColumnName="amount_extra_4" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companys">
+            <EntityTypeMapping TypeName="Model.Companys">
+              <MappingFragment StoreEntitySet="Companys">
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="street_n" ColumnName="street_n" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="cuit_n" ColumnName="cuit_n" />
+                <ScalarProperty Name="phone_n" ColumnName="phone_n" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Concept_types">
+            <EntityTypeMapping TypeName="Model.Concept_types">
+              <MappingFragment StoreEntitySet="Concept_types">
+                <ScalarProperty Name="concept_type_id" ColumnName="concept_type_id" />
+                <ScalarProperty Name="concept_type" ColumnName="concept_type" />
+                <ScalarProperty Name="concept_type_initials" ColumnName="concept_type_initials" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Concepts">
+            <EntityTypeMapping TypeName="Model.Concepts">
+              <MappingFragment StoreEntitySet="Concepts">
+                <ScalarProperty Name="concept_id" ColumnName="concept_id" />
+                <ScalarProperty Name="sorted_concept_id" ColumnName="sorted_concept_id" />
+                <ScalarProperty Name="concept" ColumnName="concept" />
+                <ScalarProperty Name="concept_type_id" ColumnName="concept_type_id" />
+                <ScalarProperty Name="percentage" ColumnName="percentage" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="formula_id" ColumnName="formula_id" />
+                <ScalarProperty Name="common" ColumnName="common" />
+                <ScalarProperty Name="quantity_editable" ColumnName="quantity_editable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="Model.Employees">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="file_n" ColumnName="file_n" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+                <ScalarProperty Name="sex_id" ColumnName="sex_id" />
+                <ScalarProperty Name="document_n" ColumnName="document_n" />
+                <ScalarProperty Name="cuil_n" ColumnName="cuil_n" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone_n" ColumnName="phone_n" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="street_n" ColumnName="street_n" />
+                <ScalarProperty Name="floor" ColumnName="floor" />
+                <ScalarProperty Name="departament" ColumnName="departament" />
+                <ScalarProperty Name="prof_calification" ColumnName="prof_calification" />
+                <ScalarProperty Name="basic_salary" ColumnName="basic_salary" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="social_work_id" ColumnName="social_work_id" />
+                <ScalarProperty Name="labor_union_id" ColumnName="labor_union_id" />
+                <ScalarProperty Name="art_id" ColumnName="art_id" />
+                <ScalarProperty Name="low_date" ColumnName="low_date" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="fixed_schedule_id" ColumnName="fixed_schedule_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees_liquidated">
+            <EntityTypeMapping TypeName="Model.Employees_liquidated">
+              <MappingFragment StoreEntitySet="Employees_liquidated">
+                <ScalarProperty Name="employee_liquidated_id" ColumnName="employee_liquidated_id" />
+                <ScalarProperty Name="liquidation_fixed_data_id" ColumnName="liquidation_fixed_data_id" />
+                <ScalarProperty Name="file_n" ColumnName="file_n" />
+                <ScalarProperty Name="rem_total" ColumnName="rem_total" />
+                <ScalarProperty Name="no_rem_total" ColumnName="no_rem_total" />
+                <ScalarProperty Name="ded_total" ColumnName="ded_total" />
+                <ScalarProperty Name="basic_salary" ColumnName="basic_salary" />
+                <ScalarProperty Name="gross_salary" ColumnName="gross_salary" />
+                <ScalarProperty Name="net_salary" ColumnName="net_salary" />
+                <ScalarProperty Name="issue" ColumnName="issue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees_liquidated_concepts">
+            <EntityTypeMapping TypeName="Model.Employees_liquidated_concepts">
+              <MappingFragment StoreEntitySet="Employees_liquidated_concepts">
+                <ScalarProperty Name="employee_liquidated_id" ColumnName="employee_liquidated_id" />
+                <ScalarProperty Name="sorted_concept_id" ColumnName="sorted_concept_id" />
+                <ScalarProperty Name="concept" ColumnName="concept" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="rem" ColumnName="rem" />
+                <ScalarProperty Name="no_rem" ColumnName="no_rem" />
+                <ScalarProperty Name="ded" ColumnName="ded" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fixed_schedules">
+            <EntityTypeMapping TypeName="Model.Fixed_schedules">
+              <MappingFragment StoreEntitySet="Fixed_schedules">
+                <ScalarProperty Name="fixed_schedule_id" ColumnName="fixed_schedule_id" />
+                <ScalarProperty Name="lu_m_d" ColumnName="lu_m_d" />
+                <ScalarProperty Name="lu_m_h" ColumnName="lu_m_h" />
+                <ScalarProperty Name="lu_l_d" ColumnName="lu_l_d" />
+                <ScalarProperty Name="lu_l_h" ColumnName="lu_l_h" />
+                <ScalarProperty Name="ma_m_d" ColumnName="ma_m_d" />
+                <ScalarProperty Name="ma_m_h" ColumnName="ma_m_h" />
+                <ScalarProperty Name="ma_l_d" ColumnName="ma_l_d" />
+                <ScalarProperty Name="ma_l_h" ColumnName="ma_l_h" />
+                <ScalarProperty Name="mi_m_d" ColumnName="mi_m_d" />
+                <ScalarProperty Name="mi_m_h" ColumnName="mi_m_h" />
+                <ScalarProperty Name="mi_l_d" ColumnName="mi_l_d" />
+                <ScalarProperty Name="mi_l_h" ColumnName="mi_l_h" />
+                <ScalarProperty Name="ju_m_d" ColumnName="ju_m_d" />
+                <ScalarProperty Name="ju_m_h" ColumnName="ju_m_h" />
+                <ScalarProperty Name="ju_l_d" ColumnName="ju_l_d" />
+                <ScalarProperty Name="ju_l_h" ColumnName="ju_l_h" />
+                <ScalarProperty Name="vi_m_d" ColumnName="vi_m_d" />
+                <ScalarProperty Name="vi_m_h" ColumnName="vi_m_h" />
+                <ScalarProperty Name="vi_l_d" ColumnName="vi_l_d" />
+                <ScalarProperty Name="vi_l_h" ColumnName="vi_l_h" />
+                <ScalarProperty Name="sa_m_d" ColumnName="sa_m_d" />
+                <ScalarProperty Name="sa_m_h" ColumnName="sa_m_h" />
+                <ScalarProperty Name="sa_l_d" ColumnName="sa_l_d" />
+                <ScalarProperty Name="sa_l_h" ColumnName="sa_l_h" />
+                <ScalarProperty Name="do_m_d" ColumnName="do_m_d" />
+                <ScalarProperty Name="do_m_h" ColumnName="do_m_h" />
+                <ScalarProperty Name="do_l_d" ColumnName="do_l_d" />
+                <ScalarProperty Name="do_l_h" ColumnName="do_l_h" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Formulas">
+            <EntityTypeMapping TypeName="Model.Formulas">
+              <MappingFragment StoreEntitySet="Formulas">
+                <ScalarProperty Name="formula_id" ColumnName="formula_id" />
+                <ScalarProperty Name="formula" ColumnName="formula" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="quantity_leyend" ColumnName="quantity_leyend" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Holidays">
+            <EntityTypeMapping TypeName="Model.Holidays">
+              <MappingFragment StoreEntitySet="Holidays">
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="day" ColumnName="day" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Labor_unions">
+            <EntityTypeMapping TypeName="Model.Labor_unions">
+              <MappingFragment StoreEntitySet="Labor_unions">
+                <ScalarProperty Name="labor_union_id" ColumnName="labor_union_id" />
+                <ScalarProperty Name="labor_union" ColumnName="labor_union" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="street_n" ColumnName="street_n" />
+                <ScalarProperty Name="floor" ColumnName="floor" />
+                <ScalarProperty Name="departament" ColumnName="departament" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="phone_n" ColumnName="phone_n" />
+                <ScalarProperty Name="percentage_retention" ColumnName="percentage_retention" />
+                <ScalarProperty Name="amount_retention" ColumnName="amount_retention" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Liquidation_fixed_datas">
+            <EntityTypeMapping TypeName="Model.Liquidation_fixed_datas">
+              <MappingFragment StoreEntitySet="Liquidation_fixed_datas">
+                <ScalarProperty Name="liquidation_fixed_data_id" ColumnName="liquidation_fixed_data_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="period" ColumnName="period" />
+                <ScalarProperty Name="liquidation_type_id" ColumnName="liquidation_type_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="deposited_date" ColumnName="deposited_date" />
+                <ScalarProperty Name="bank_id" ColumnName="bank_id" />
+                <ScalarProperty Name="deposited_period" ColumnName="deposited_period" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Liquidation_types">
+            <EntityTypeMapping TypeName="Model.Liquidation_types">
+              <MappingFragment StoreEntitySet="Liquidation_types">
+                <ScalarProperty Name="liquidation_type_id" ColumnName="liquidation_type_id" />
+                <ScalarProperty Name="liquidation_type" ColumnName="liquidation_type" />
+                <ScalarProperty Name="liquidation_type_initials" ColumnName="liquidation_type_initials" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provinces">
+            <EntityTypeMapping TypeName="Model.Provinces">
+              <MappingFragment StoreEntitySet="Provinces">
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="province" ColumnName="province" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="Model.Schedules">
+              <MappingFragment StoreEntitySet="Schedules">
+                <ScalarProperty Name="calendar_id" ColumnName="calendar_id" />
+                <ScalarProperty Name="day" ColumnName="day" />
+                <ScalarProperty Name="turn_id" ColumnName="turn_id" />
+                <ScalarProperty Name="fixed_schedule_id" ColumnName="fixed_schedule_id" />
+                <ScalarProperty Name="nwork_day" ColumnName="nwork_day" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sexs">
+            <EntityTypeMapping TypeName="Model.Sexs">
+              <MappingFragment StoreEntitySet="Sexs">
+                <ScalarProperty Name="sex_id" ColumnName="sex_id" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Social_works">
+            <EntityTypeMapping TypeName="Model.Social_works">
+              <MappingFragment StoreEntitySet="Social_works">
+                <ScalarProperty Name="social_work_id" ColumnName="social_work_id" />
+                <ScalarProperty Name="social_work" ColumnName="social_work" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="street_n" ColumnName="street_n" />
+                <ScalarProperty Name="floor" ColumnName="floor" />
+                <ScalarProperty Name="departament" ColumnName="departament" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="phone_n" ColumnName="phone_n" />
+                <ScalarProperty Name="percentage_retention" ColumnName="percentage_retention" />
+                <ScalarProperty Name="amount_retention" ColumnName="amount_retention" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Turns">
+            <EntityTypeMapping TypeName="Model.Turns">
+              <MappingFragment StoreEntitySet="Turns">
+                <ScalarProperty Name="turn_id" ColumnName="turn_id" />
+                <ScalarProperty Name="morning_d" ColumnName="morning_d" />
+                <ScalarProperty Name="morning_h" ColumnName="morning_h" />
+                <ScalarProperty Name="late_d" ColumnName="late_d" />
+                <ScalarProperty Name="late_h" ColumnName="late_h" />
+                <ScalarProperty Name="color" ColumnName="color" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Model.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Employees_concepts" TypeName="Model.Employees_concepts" StoreEntitySet="Employees-concepts">
+            <EndProperty Name="Concepts">
+              <ScalarProperty Name="concept_id" ColumnName="concept_id" />
+            </EndProperty>
+            <EndProperty Name="Employees">
+              <ScalarProperty Name="file_n" ColumnName="file_n" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

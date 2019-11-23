@@ -1,0 +1,303 @@
+﻿<UserControl x:Class="WPFApp.Views.UserControls.LiquidationFixedDataUC"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:helper="clr-namespace:WPFApp.Helper"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFApp.Views.UserControls"
+             mc:Ignorable="d" 
+             
+             d:DesignHeight="580" d:DesignWidth="760">
+    <UserControl.Resources>
+        <CollectionViewSource Source="{Binding Path=LiquidationFixedDatas}" 
+                              IsLiveSortingRequested="True"
+                              x:Key="LiquidationFixedDatas">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="period"
+                                     Direction="Descending"/>
+                <scm:SortDescription PropertyName="liquidation_fixed_data_id"
+                                     Direction="Descending"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource Source="{Binding Path=LiquidationTypes}" 
+                              x:Key="LiquidationTypes">
+            <CollectionViewSource.SortDescriptions>                
+                <scm:SortDescription PropertyName="liquidation_type_id"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    <StackPanel>
+        <TextBlock Margin="60 0 60 5"
+                   Opacity="0.85"
+                   Height="30"
+                   FontSize="22"
+                   Text="Datos fijos"/>
+        <materialDesign:DialogHost Margin="10"
+                                   IsOpen="{Binding Path=LoadingDialog}">
+            <materialDesign:DialogHost.DialogContent>
+                <DockPanel Width="125" Height="125">
+                    <TextBlock DockPanel.Dock="Bottom"
+                               Text="{Binding Path=TextLoadingDialog, Mode=OneWay}"
+                               FontWeight="SemiBold"
+                               Margin="0 0 0 15"
+                               TextAlignment="Center"/>
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                 IsIndeterminate="True"
+                                 Height="30"      
+                                 Width="30"
+                                 Foreground="{StaticResource SecondaryAccentBrush}"/>
+                </DockPanel>
+            </materialDesign:DialogHost.DialogContent>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <materialDesign:Card Margin="0 0 0 10"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                    <DockPanel Margin="15">
+                        <StackPanel DockPanel.Dock="top"
+                                    Orientation="Horizontal">
+                            <StackPanel Name="Confirm"
+                                        Orientation="Horizontal"
+                                        IsEnabled="False"
+                                        Margin="0 0 10 0">
+                                <Button Height="30"
+                                        Width="30"
+                                        Padding="0"
+                                        ToolTip="Confirmar" 
+                                        Command="{Binding Path=Apply}"
+                                        Click="ApplyOrCanel"
+                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                    <materialDesign:PackIcon Kind="Check"
+                                                             Foreground="#689F38"
+                                                             Width="30"
+                                                             Height="30"/>
+                                </Button>
+                                <Button Height="30"
+                                        Width="30"
+                                        Padding="0"
+                                        ToolTip="Cancelar"
+                                        Command="{Binding Path=Cancel}"                                        
+                                        Click="ApplyOrCanel"
+                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                    <materialDesign:PackIcon Kind="Clear"
+                                                             Foreground="#E53935"
+                                                             Width="30"
+                                                             Height="30"/>
+                                </Button>
+                            </StackPanel>
+                            <StackPanel Name="Controls"
+                                        Orientation="Horizontal"
+                                        Margin="10 0 0 0">
+                                <Button Height="30"
+                                        Width="30"
+                                        Padding="0"
+                                        ToolTip="Anterior"
+                                        Command="{Binding Path=Previous}"
+                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                    <materialDesign:PackIcon Kind="KeyboardArrowLeft"
+                                                             Width="30"
+                                                             Height="30"/>
+                                </Button>
+                                <Button Height="30"
+                                        Width="30"
+                                        Padding="0"
+                                        ToolTip="Siguiente"
+                                        Command="{Binding Path=Next}"
+                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                    <materialDesign:PackIcon Kind="KeyboardArrowRight"
+                                                             Width="30"
+                                                             Height="30"/>
+                                </Button>
+                                <Rectangle VerticalAlignment="Stretch"
+                                           Width="1"
+                                           Margin="5 0" 
+                                           Height="25"
+                                           Stroke="{StaticResource PrimaryHueMidBrush}" />
+                                <Button Height="30"
+                                        Width="30"
+                                        Padding="0"
+                                        ToolTip="Agregar"
+                                        Command="{Binding Path=New}"
+                                        Click="New"
+                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                    <materialDesign:PackIcon Kind="Add"
+                                                             Width="30"
+                                                             Foreground="#689F38"
+                                                             Height="30"/>
+                                </Button>
+                                <Button Height="30"
+                                        Width="30"
+                                        Padding="0"
+                                        ToolTip="Modificar"
+                                        Command="{Binding Path=Update}"
+                                        Click="Update"
+                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                    <materialDesign:PackIcon Kind="Pencil"
+                                                             Foreground="#FBC02D"
+                                                             Width="25"
+                                                             Height="25"/>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                        <Border Name="Search"
+                                Grid.Row="0"
+                                BorderThickness="1"
+                                BorderBrush="{StaticResource BorderContent}"
+                                Margin="0 20 0 10">
+                            <StackPanel Margin="15"
+                                        VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0 0 0 20">
+                                    <ComboBox Name="ComboBox"
+                                              HorizontalAlignment="Left"
+                                              Width="425"
+                                              ItemsSource="{Binding Source={StaticResource LiquidationFixedDatas}, Mode=OneWay}"
+                                              SelectedValuePath="liquidation_fixed_data_id"
+                                              DisplayMemberPath="fullliquidationfixeddata"
+                                              SelectedValue="{Binding Path=LiquidationFixedDataId, Mode=TwoWay}"
+                                              Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                        <materialDesign:HintAssist.Hint>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="GpsFixed" />
+                                                <TextBlock Text="Dato fijo"
+                                                           Margin="5 0"/>
+                                            </StackPanel>
+                                        </materialDesign:HintAssist.Hint>
+                                    </ComboBox>
+                                </StackPanel>
+                                <StackPanel>
+                                    <StackPanel Margin="0 8"
+                                                Orientation="Horizontal">
+                                        <TextBlock Text="Fecha de creación:"
+                                                   FontWeight="SemiBold"
+                                                   FontSize="13"
+                                                   Margin="0 0 5 0"/>
+                                        <TextBlock Text="{Binding Path=DateS, Mode=OneWay}"
+                                                   FontSize="13"/>
+                                    </StackPanel>
+                                    <StackPanel Margin="0 8 0 0"
+                                                Orientation="Horizontal">
+                                        <TextBlock Text="Periodo de liquidación:"
+                                                   FontSize="13"
+                                                   FontWeight="SemiBold"
+                                                   Margin="0 0 5 0"/>
+                                        <TextBlock Text="{Binding Path=PeriodS, Mode=OneWay}"
+                                                   FontSize="13"
+                                                   Margin="0 0 20 0"/>
+                                        <TextBlock Text="Tipo de liquidación:"
+                                                   FontSize="13"
+                                                   FontWeight="SemiBold"
+                                                   Margin="0 0 5 0"/>
+                                        <TextBlock Text="{Binding Path=LiquidationTypeS, Mode=OneWay}"
+                                                   FontSize="13"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DockPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Name="Data"
+                                     IsEnabled="False"
+                                     Grid.Row="1"
+                                     Height="267"
+                                     Margin="0 10 0 0"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                    <StackPanel Margin="20"
+                                VerticalAlignment="Center">
+                        <StackPanel.Resources>
+                            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#E0E0E0"/>
+                            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="White"/>
+                        </StackPanel.Resources>
+                        <Grid Margin="0 0 0 8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <DatePicker Name="Period"
+                                        Grid.Column="0" 
+                                        Margin="0 0 10 0"
+                                        xml:lang="es-ES"
+                                        SelectedDateChanged="PeriodChanged"
+                                        helper:DatePickerCalendar.IsMonthYear="True" 
+                                        helper:DatePickerDateFormat.DateFormat="M/yyyy"
+                                        materialDesign:HintAssist.Hint="Periodo de liquidación (requerido)"
+                                        KeyDown="DateVerify"
+                                        SelectedDate="{Binding Path=Period, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                <DatePicker.CalendarStyle>
+                                    <Style TargetType="Calendar" BasedOn="{StaticResource CustomCalendar}"/>
+                                </DatePicker.CalendarStyle>
+                            </DatePicker>
+                            <ComboBox Grid.Column="1"
+                                      Margin="10 0 0 0"
+                                      IsEnabled="{Binding Path=LiquidationTypeEnabled, Mode=OneWay}"
+                                      materialDesign:HintAssist.Hint="Tipo de liquidación (requerido)"
+                                      ItemsSource="{Binding Source={StaticResource LiquidationTypes}, Mode=OneWay}"
+                                      SelectedValuePath="liquidation_type_id"
+                                      DisplayMemberPath="liquidation_type"
+                                      SelectedValue="{Binding Path=LiquidationTypeId, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            </ComboBox>
+                        </Grid>
+                        <TextBox Margin="0 8"
+                                 materialDesign:HintAssist.Hint="Descripción de liquidación (requerido)"
+                                 Text="{Binding Description, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                        <Grid Margin="0 8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <DatePicker Name="PeriodL"
+                                        Grid.Column="0"
+                                        Margin="0 0 10 0"
+                                        xml:lang="es-ES"
+                                        SelectedDateChanged="PeriodLChanged"
+                                        helper:DatePickerCalendar.IsMonthYear="True" 
+                                        helper:DatePickerDateFormat.DateFormat="M/yyyy"
+                                        materialDesign:HintAssist.Hint="Periodo de último depósito"
+                                        KeyDown="DateVerify"
+                                        SelectedDate="{Binding Path=DepositedPeriod, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                <DatePicker.CalendarStyle>
+                                    <Style TargetType="Calendar" BasedOn="{StaticResource CustomCalendar}"/>
+                                </DatePicker.CalendarStyle>
+                            </DatePicker>
+                        </Grid>
+                        <Grid Margin="0 8 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <DatePicker Name="DateL"
+                                        IsEnabled="False"
+                                        Grid.Column="0"
+                                        Margin="0 0 10 0"
+                                        xml:lang="es-ES"
+                                        materialDesign:HintAssist.Hint="Fecha de último depósito"
+                                        KeyDown="DateVerify"
+                                        SelectedDate="{Binding Path=DepositedDate, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                <DatePicker.CalendarStyle>
+                                    <Style TargetType="Calendar" BasedOn="{StaticResource CustomCalendar}"/>
+                                </DatePicker.CalendarStyle>
+                            </DatePicker>
+                            <ComboBox Grid.Column="1"
+                                      Margin="10 0 0 0"
+                                      materialDesign:HintAssist.Hint="Banco de última liquidación"
+                                      ItemsSource="{Binding Banks, Mode=OneTime}"
+                                      SelectedValuePath="bank_id"
+                                      DisplayMemberPath="bank"
+                                      SelectedValue="{Binding BankId, Mode=TwoWay}"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                        </Grid>
+                    </StackPanel>
+                </materialDesign:Card>
+            </Grid>
+        </materialDesign:DialogHost>
+    </StackPanel>
+</UserControl>

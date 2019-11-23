@@ -1,0 +1,1091 @@
+﻿<UserControl x:Class="WPFApp.Views.UserControls.EmployeeUC"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFApp.Views.UserControls"
+             mc:Ignorable="d" 
+             
+             d:DesignHeight="580" d:DesignWidth="760">
+    <UserControl.Resources>
+        <CollectionViewSource Source="{Binding Path=Employees}" 
+                              x:Key="Employees">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="file_n"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    <StackPanel>
+        <TextBlock Margin="10 0 10 5"
+                   Opacity="0.85"
+                   Height="30"
+                   FontSize="22"
+                   Text="Empleados"/>
+        <materialDesign:DialogHost Margin="10"
+                                   IsOpen="{Binding Path=LoadingDialog}">
+            <materialDesign:DialogHost.DialogContent>
+                <DockPanel Width="125" Height="125">
+                    <TextBlock DockPanel.Dock="Bottom"
+                               Text="{Binding Path=TextLoadingDialog, Mode=OneWay}"
+                               FontWeight="SemiBold"
+                               Margin="0 0 0 15"
+                               TextAlignment="Center"/>
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                 IsIndeterminate="True"
+                                 Height="30"      
+                                 Width="30"
+                                 Foreground="{StaticResource SecondaryAccentBrush}"/>
+                </DockPanel>
+            </materialDesign:DialogHost.DialogContent>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <materialDesign:Card Name="Search"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                     Grid.Row="0"
+                                     Width="310"
+                                     Height="525"
+                                     Margin="0 0 10 0">
+                    <DockPanel Margin="15">
+                        <ComboBox DockPanel.Dock="top"
+                                  Name="FilterBox"
+                                  Margin="0 0 0 5" 
+                                  SelectedIndex="{Binding Path=Filter, Mode=OneWayToSource, FallbackValue=0}"
+                                  SelectionChanged="FilterChangedIndex"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <materialDesign:HintAssist.Hint>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="FilterVariant" />
+                                    <TextBlock Text="Filtro"
+                                               Margin="5 0"/>
+                                </StackPanel>
+                            </materialDesign:HintAssist.Hint>
+                            <ComboBoxItem Content="Legajo"/>
+                            <ComboBoxItem Content="Empleado"/>
+                        </ComboBox>
+                        <Grid DockPanel.Dock="Top"
+                              Margin="0 5">
+                            <TextBox Name="SearchBox"
+                                     materialDesign:TextFieldAssist.TextBoxViewMargin="0 0 22 0"
+                                     MaxLength="30"
+                                     KeyDown="SearchBoxVerify"
+                                     Text="{Binding Path=Search, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                <materialDesign:HintAssist.Hint>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Search" />
+                                        <TextBlock Text="Buscar"
+                                                   Margin="5 0"/>
+                                    </StackPanel>
+                                </materialDesign:HintAssist.Hint>
+                            </TextBox>
+                            <Button Height="20"
+                                    Width="20"
+                                    Content="{materialDesign:PackIcon Clear}"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Right"
+                                    Margin="0 0 0 2"
+                                    Padding="0"
+                                    ToolTip="Limpiar"
+                                    Background="White"
+                                    Click="ClearSearchBox"
+                                    Style="{StaticResource MaterialDesignFlatButton}"/>
+                        </Grid>
+                        <StackPanel Margin="0 2 0 0"
+                                    DockPanel.Dock="Bottom"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Right">
+                            <Canvas Width="10"
+                                    Height="10"
+                                    Background="#EF9A9A"/>
+                            <TextBlock Text="Baja"
+                                       Margin="5 0 0 0"
+                                       FontSize="11"/>
+                        </StackPanel>
+                        <DataGrid Name="DataGrid"
+                                  Margin="0 20 0 0" 
+                                  IsReadOnly="True"
+                                  SelectionMode="Single"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False"
+                                  CanUserResizeColumns="False"
+                                  CanUserResizeRows="False"
+                                  AutoGenerateColumns="False"  
+                                  materialDesign:DataGridAssist.ColumnHeaderPadding="5"
+                                  BorderThickness="1"
+                                  SelectionChanged="DataGridSelectionChanged"
+                                  ItemsSource="{Binding Source={StaticResource Employees}, Mode=OneWay}"
+                                  SelectedValuePath="file_n"
+                                  SelectedValue="{Binding Path=FileN, Mode=TwoWay}"
+                                  BorderBrush="{StaticResource BorderContent}"
+                                  Background="Transparent">
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=state}" Value="false">
+                                            <Setter Property="Background" Value="#EF9A9A" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.RowStyle>
+                            <DataGrid.CellStyle>
+                                <Style TargetType="DataGridCell" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="{StaticResource DataGridSelection}"/>
+                                            <Setter Property="Foreground" Value="{StaticResource DataGridSelectionForeground}"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.CellStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Legajo"
+                                                    Width="0.25*"
+                                                    Binding="{Binding Path=file_n}"/>
+                                <DataGridTextColumn Header="Empleado"
+                                                    Width="*">
+                                    <DataGridTextColumn.Binding>
+                                        <MultiBinding StringFormat="{}{0}  {1}">
+                                            <Binding Path="last_name" />
+                                            <Binding Path="name" />
+                                        </MultiBinding>
+                                    </DataGridTextColumn.Binding>
+                                </DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
+                </materialDesign:Card>
+                <StackPanel Grid.Column="1"
+                            Margin="10 0 0 0">
+                    <StackPanel.Resources>
+                        <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#E0E0E0"/>
+                        <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="White"/>
+                    </StackPanel.Resources>
+                    <materialDesign:Card Margin="0 0 0 5"
+                                         materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                        <DockPanel Margin="15">
+                            <StackPanel DockPanel.Dock="top"
+                                        Orientation="Horizontal">
+                                <StackPanel Name="Confirm"
+                                            Orientation="Horizontal"
+                                            IsEnabled="False"
+                                            Margin="0 0 10 0">
+                                    <Button Height="30"
+                                            Width="30"
+                                            Padding="0"
+                                            ToolTip="Confirmar" 
+                                            Command="{Binding Path=Apply}"
+                                            Click="ApplyOrCanel"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                        <materialDesign:PackIcon Kind="Check"
+                                                                 Foreground="#689F38"
+                                                                 Width="30"
+                                                                 Height="30"/>
+                                    </Button>
+                                    <Button Height="30"
+                                            Width="30"
+                                            Padding="0"
+                                            ToolTip="Cancelar"
+                                            Command="{Binding Path=Cancel}"
+                                            Click="ApplyOrCanel"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                        <materialDesign:PackIcon Kind="Clear"
+                                                                 Foreground="#E53935"
+                                                                 Width="30"
+                                                                 Height="30"/>
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel Name="Controls"
+                                            Orientation="Horizontal"
+                                            Margin="10 0 0 0">
+                                    <Button Height="30"
+                                            Width="30"
+                                            Padding="0"
+                                            ToolTip="Anterior"
+                                            Command="{Binding Path=Previous}"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                        <materialDesign:PackIcon Kind="KeyboardArrowLeft"
+                                                                 Width="30"
+                                                                 Height="30"/>
+                                    </Button>
+                                    <Button Height="30"
+                                            Width="30"
+                                            Padding="0"
+                                            ToolTip="Siguiente"
+                                            Command="{Binding Path=Next}"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                        <materialDesign:PackIcon Kind="KeyboardArrowRight"
+                                                                 Width="30"
+                                                                 Height="30"/>
+                                    </Button>
+                                    <Rectangle VerticalAlignment="Stretch"
+                                               Width="1"
+                                               Margin="5 0" 
+                                               Height="25"
+                                               Stroke="{StaticResource PrimaryHueMidBrush}" />
+                                    <Button Height="30"
+                                            Width="30"
+                                            Padding="0"
+                                            ToolTip="Agregar"
+                                            Command="{Binding Path=New}"
+                                            Click="New"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                        <materialDesign:PackIcon Kind="Add"
+                                                                 Width="30"
+                                                                 Foreground="#689F38"
+                                                                 Height="30"/>
+                                    </Button>
+                                    <Button Height="30"
+                                            Width="30"
+                                            Padding="0"
+                                            ToolTip="Modificar"
+                                            Command="{Binding Path=Update}"
+                                            Click="Update"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                        <materialDesign:PackIcon Kind="Pencil"
+                                                                 Foreground="#FBC02D"
+                                                                 Width="25"
+                                                                 Height="25"/>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                            <Border Name="Data"
+                                    IsEnabled="False"
+                                    DockPanel.Dock="Top"
+                                    BorderThickness="1"
+                                    BorderBrush="{StaticResource BorderContent}"
+                                    Margin="0 20 0 0">
+                                <Grid Margin="17">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox Name="StateBox"
+                                              Grid.Column="0"
+                                              Margin="0 0 10 0"
+                                              SelectedIndex="{Binding Path=State, Mode=TwoWay}"
+                                              SelectionChanged="StateChanged"
+                                              Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                        <materialDesign:HintAssist.Hint>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="ImportExport" />
+                                                <TextBlock Text="Estado"
+                                                           Margin="5 0"/>
+                                            </StackPanel>
+                                        </materialDesign:HintAssist.Hint>
+                                        <ComboBoxItem Content="BAJA"/>
+                                        <ComboBoxItem Content="ALTA"/>
+                                    </ComboBox>
+                                    <DatePicker Name="LowDateBox"
+                                                Grid.Column="1"
+                                                Margin="10 0 0 0"
+                                                xml:lang="es-ES"
+                                                KeyDown="DateVerify"
+                                                materialDesign:HintAssist.Hint="Fecha de baja"
+                                                SelectedDate="{Binding Path=LowDate, Mode=TwoWay}"
+                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                        <DatePicker.CalendarStyle>
+                                            <Style TargetType="Calendar" BasedOn="{StaticResource CustomCalendar}"/>
+                                        </DatePicker.CalendarStyle>
+                                    </DatePicker>
+                                </Grid>
+                            </Border>
+                        </DockPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Name="DataTab"
+                                         IsEnabled="False"
+                                         Margin="0 5 0 0"
+                                         Height="359"
+                                         Background="#F5F5F5"
+                                         materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                        <TabControl Name="Tab"
+                                    TabStripPlacement="Left">                            
+                            <TabItem Width="96"
+                                     Header="PERSONALES">
+                                <StackPanel Margin="20 0"
+                                            VerticalAlignment="Center">                                    
+                                    <TextBox Name="NameBox"
+                                             MaxLength="30"
+                                             Margin="0 2 0 8"
+                                             materialDesign:HintAssist.Hint="Nombre (requerido)"
+                                             Text="{Binding Path=Name, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    <TextBox Margin="0 8"
+                                             MaxLength="20"
+                                             materialDesign:HintAssist.Hint="Apellido (requerido)"
+                                             Text="{Binding Path=LastName, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    <TextBox Margin="0 8"
+                                             MaxLength="8"
+                                             materialDesign:HintAssist.Hint="N° de documento (requerido)"
+                                             KeyDown="NumberVerify"
+                                             Text="{Binding Path=DocumentN, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    <TextBox Margin="0 8"
+                                             MaxLength="11"
+                                             materialDesign:HintAssist.Hint="N° de C.U.I.L (requerido)"
+                                             KeyDown="NumberVerify"
+                                             Text="{Binding Path=CuilN, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    <Grid Margin="0 8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <ComboBox Grid.Column="0"
+                                                  Margin="0 0 5 0"
+                                                  materialDesign:HintAssist.Hint="Sexo"
+                                                  ItemsSource="{Binding Path=Sexs, Mode=OneTime}"
+                                                  DisplayMemberPath="sex"
+                                                  SelectedValuePath="sex_id"
+                                                  SelectedValue="{Binding Path=SexId, Mode=TwoWay}"
+                                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                                    </Grid>
+                                    <DatePicker Name="BirthDate"
+                                                Margin="0 8 0 2"
+                                                xml:lang="es-ES"
+                                                materialDesign:HintAssist.Hint="Fecha de nacimiento (requerido)"
+                                                KeyDown="DateVerify"  
+                                                SelectedDate="{Binding Path=BirthDate, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                        <DatePicker.CalendarStyle>
+                                            <Style TargetType="Calendar" BasedOn="{StaticResource CustomCalendar}"/>
+                                        </DatePicker.CalendarStyle>
+                                    </DatePicker>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="CONTACTO">
+                                <StackPanel Margin="20 0"
+                                            VerticalAlignment="Center">
+                                    <Grid Margin="0 2 0 8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <ComboBox Grid.Column="0"
+                                                  Margin="0 0 5 0"
+                                                  materialDesign:HintAssist.Hint="Provincia"
+                                                  ItemsSource="{Binding Path=Provinces, Mode=OneWay}"
+                                                  DisplayMemberPath="province"
+                                                  SelectedValuePath="province_id"
+                                                  SelectedValue="{Binding Path=ProvinceId, Mode=TwoWay}"
+                                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                                        <TextBox Grid.Column="1" 
+                                                 MaxLength="20"
+                                                 Margin="5 0 0 0"
+                                                 materialDesign:HintAssist.Hint="Localidad"
+                                                 Text="{Binding Path=City, Mode=TwoWay, TargetNullValue=''}"
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    </Grid>
+                                    <Grid Margin="0 8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox Grid.Column="0" 
+                                                 MaxLength="4"
+                                                 Margin="0 0 5 0"
+                                                 materialDesign:HintAssist.Hint="Código postal"
+                                                 KeyDown="NumberVerify"
+                                                 Text="{Binding Path=PostalCode, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    </Grid>
+                                    <Grid Margin="0 8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox Grid.Column="0" 
+                                                 MaxLength="20"
+                                                 Margin="0 0 5 0"
+                                                 materialDesign:HintAssist.Hint="Calle"
+                                                 Text="{Binding Path=Street, Mode=TwoWay, TargetNullValue=''}"
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                        <TextBox Grid.Column="1" 
+                                                 MaxLength="4"
+                                                 Margin="5 0 0 0"
+                                                 materialDesign:HintAssist.Hint="N° de calle"
+                                                 KeyDown="NumberVerify"
+                                                 Text="{Binding Path=StreetN, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    </Grid>
+                                    <Grid Margin="0 8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox Grid.Column="0" 
+                                                 MaxLength="2"
+                                                 Margin="0 0 5 0"
+                                                 materialDesign:HintAssist.Hint="Piso"
+                                                 KeyDown="NumberVerify"
+                                                 Text="{Binding Path=Floor, Mode=TwoWay, TargetNullValue=''}"
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                        <TextBox Grid.Column="1" 
+                                                 MaxLength="2"
+                                                 Margin="5 0 0 0"
+                                                 materialDesign:HintAssist.Hint="Departamento"
+                                                 Text="{Binding Path=Departament, Mode=TwoWay, TargetNullValue=''}"
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    </Grid>
+                                    <TextBox Margin="0 8"
+                                             MaxLength="13"
+                                             materialDesign:HintAssist.Hint="N° de teléfono"
+                                             KeyDown="NumberVerify"
+                                             Text="{Binding Path=PhoneN, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    <TextBox Margin="0 8 0 2"
+                                             MaxLength="35"
+                                             materialDesign:HintAssist.Hint="Correo electrónico"
+                                             Text="{Binding Path=Email, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="LABORALES">
+                                <StackPanel Margin="20 0"
+                                            VerticalAlignment="Center">
+                                    <DatePicker Margin="0 2 0 8"
+                                                xml:lang="es-ES"
+                                                materialDesign:HintAssist.Hint="Fecha de ingreso (requerido)"
+                                                KeyDown="DateVerify"
+                                                SelectedDate="{Binding Path=EntryDate, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                        <DatePicker.CalendarStyle>
+                                            <Style TargetType="Calendar" BasedOn="{StaticResource CustomCalendar}"/>
+                                        </DatePicker.CalendarStyle>
+                                    </DatePicker>
+                                    <ComboBox Margin="0 8"
+                                              materialDesign:HintAssist.Hint="Categoría (requerido)"
+                                              ItemsSource="{Binding Path=Categorys, Mode=OneTime}"
+                                              DisplayMemberPath="category"
+                                              SelectedValuePath="category_id"
+                                              SelectedValue="{Binding Path=CategoryId, Mode=TwoWay}"
+                                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                                    <Grid Margin="0 3 0 8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox Name="BasicSalary"
+                                                 Grid.Column="0"
+                                                 IsEnabled="False"
+                                                 Margin="0 0 5 0"
+                                                 MaxLength="10"
+                                                 materialDesign:HintAssist.Hint="Sueldo básico"
+                                                 KeyDown="DecimalVerify9"
+                                                 Text="{Binding Path=BasicSalary, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                        <CheckBox Grid.Column="1"
+                                                  FontSize="12"
+                                                  VerticalAlignment="Bottom"
+                                                  Margin="5 0 0 0"
+                                                  Checked="Checked"
+                                                  Unchecked="Unchecked"
+                                                  IsChecked="{Binding Path=Manually, Mode=TwoWay}"
+                                                  Content="Ingresar manualmente">
+                                            <CheckBox.Resources>
+                                                <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#D32F2F"/>
+                                            </CheckBox.Resources>
+                                        </CheckBox>
+                                    </Grid>
+                                    <ComboBox Margin="0 8"
+                                              materialDesign:HintAssist.Hint="Obra social (requerido)"
+                                              ItemsSource="{Binding Path=SocialWorks, Mode=OneTime}"
+                                              DisplayMemberPath="social_work"
+                                              SelectedValuePath="social_work_id"
+                                              SelectedValue="{Binding Path=SocialWorkId, Mode=TwoWay}"
+                                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                                    <ComboBox Margin="0 8"
+                                              materialDesign:HintAssist.Hint="Sindicato (requerido)"
+                                              ItemsSource="{Binding Path=LaborUnions, Mode=OneTime}"
+                                              DisplayMemberPath="labor_union"
+                                              SelectedValuePath="labor_union_id"
+                                              SelectedValue="{Binding Path=LaborUnionId, Mode=TwoWay}"
+                                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                                    <Grid Margin="0 8 0 2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <ComboBox Grid.Column="0"
+                                                  Margin="0 0 5 0"
+                                                  Width="110"
+                                                  materialDesign:HintAssist.Hint="ART (requerido)"
+                                                  ItemsSource="{Binding Path=ART, Mode=OneTime}"
+                                                  DisplayMemberPath="art1"
+                                                  SelectedValuePath="art_id"
+                                                  SelectedValue="{Binding Path=ARTId, Mode=TwoWay}"
+                                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                                        <TextBox Grid.Column="1"
+                                                 Margin="5 0 0 0"
+                                                 MaxLength="30"
+                                                 materialDesign:HintAssist.Hint="Calificación profesional"
+                                                 Text="{Binding Path=ProfCalification, Mode=TwoWay, TargetNullValue=''}"
+                                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    </Grid>
+                                    
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="HORARIOS">
+                                <DockPanel Margin="2">
+                                    <ComboBox Name="ScheduleBox"
+                                                      DockPanel.Dock="Top"
+                                                      Width="225"
+                                                      Margin="0 0 0 15"
+                                                      SelectedIndex="{Binding Path=ScheduleIndex, Mode=TwoWay}"
+                                                      SelectionChanged="ScheduleChanged"
+                                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                        <materialDesign:HintAssist.Hint>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="Schedule" />
+                                                <TextBlock Text="Horario"
+                                                                   Margin="5 0"/>
+                                            </StackPanel>
+                                        </materialDesign:HintAssist.Hint>
+                                        <ComboBoxItem Content="Rotativo"/>
+                                        <ComboBoxItem Content="Fijo"/>
+                                    </ComboBox>
+                                    <Grid Name="Schedule"
+                                                  VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.Resources>
+                                            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#E0E0E0"/>
+                                            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="White"/>
+                                        </Grid.Resources>
+                                        <ComboBox Grid.Column="0"
+                                                  Grid.Row="0"
+                                                  Width="35"
+                                                  FontSize="12"
+                                                  IsEditable="True"
+                                                  materialDesign:HintAssist.Hint="ID"
+                                                  ItemsSource="{Binding Path=FixedSchedules, Mode=OneWay}"
+                                                  DisplayMemberPath="fixed_schedule_id"
+                                                  SelectedValuePath="fixed_schedule_id"
+                                                  SelectedValue="{Binding Path=FixedScheduleId, Mode=TwoWay}"
+                                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                                        <StackPanel Grid.Column="1"
+                                                    Grid.Row="0">
+                                            <TextBlock DockPanel.Dock="top"
+                                                       Text="Mañana"
+                                                       Margin="0 0 0 5"
+                                                       FontSize="15"
+                                                       FontWeight="SemiBold"
+                                                       HorizontalAlignment="Center"/>
+                                            <Separator DockPanel.Dock="top"
+                                                               Background="{StaticResource SecondaryAccentBrush}"
+                                                               Width="20">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="3"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2"
+                                                    Grid.Row="0">
+                                            <TextBlock DockPanel.Dock="top"
+                                                       Text="Tarde"
+                                                       Margin="0 0 0 5"
+                                                       FontSize="15"
+                                                       FontWeight="SemiBold"
+                                                       HorizontalAlignment="Center"/>
+                                            <Separator DockPanel.Dock="top"
+                                                       Background="{StaticResource SecondaryAccentBrush}"
+                                                       Width="20">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="3"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                        </StackPanel>
+                                        <TextBlock Grid.Column="0"
+                                                   Grid.Row="1"
+                                                   Text="Lun."
+                                                   Margin="0 5"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontWeight="SemiBold"/>
+                                        <StackPanel Grid.Column="1"
+                                                    Grid.Row="1"
+                                                    Margin="0 5"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Desde"
+                                                                       Text="{Binding Path=Lu_m_d, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                            <Separator Background="{StaticResource PrimaryHueMidBrush}"
+                                                       Width="5"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3 0">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="2"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Hasta"
+                                                                       Text="{Binding Path=Lu_m_h, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2"
+                                                    Grid.Row="1"
+                                                    Margin="0 5"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Desde"
+                                                                       Text="{Binding Path=Lu_l_d, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                            <Separator Background="{StaticResource PrimaryHueMidBrush}"
+                                                       Width="5"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3 0">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="2"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Hasta"
+                                                                       Text="{Binding Path=Lu_l_h, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                        </StackPanel>
+                                        <TextBlock Grid.Column="0"
+                                                   Grid.Row="2"
+                                                   Text="Mar."
+                                                   Margin="0 5"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontWeight="SemiBold"/>
+                                        <StackPanel Grid.Column="1"
+                                                    Grid.Row="2"
+                                                    Margin="0 5"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Desde"
+                                                                       Text="{Binding Path=Ma_m_d, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                            <Separator Background="{StaticResource PrimaryHueMidBrush}"
+                                                       Width="5"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3 0">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="2"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Hasta"
+                                                                       Text="{Binding Path=Ma_m_h, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2"
+                                                    Grid.Row="2"
+                                                    Margin="0 5"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Desde"
+                                                                       Text="{Binding Path=Ma_l_d, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                            <Separator Background="{StaticResource PrimaryHueMidBrush}"
+                                                       Width="5"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3 0">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="2"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Hasta"
+                                                                       Text="{Binding Path=Ma_l_h, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                        </StackPanel>
+                                        <TextBlock Grid.Column="0"
+                                                   Grid.Row="3"
+                                                   Margin="0 5"
+                                                   Text="Mié."
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontWeight="SemiBold"/>
+                                        <StackPanel Grid.Column="1"
+                                                    Grid.Row="3"
+                                                    Margin="0 5"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Desde"
+                                                                       Text="{Binding Path=Mi_m_d, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                            <Separator Background="{StaticResource PrimaryHueMidBrush}"
+                                                       Width="5"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3 0">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="2"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Hasta"
+                                                                       Text="{Binding Path=Mi_m_h, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2"
+                                                    Grid.Row="3"
+                                                    Margin="0 5"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Desde"
+                                                                       Text="{Binding Path=Mi_l_d, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                            <Separator Background="{StaticResource PrimaryHueMidBrush}"
+                                                       Width="5"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3 0">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="2"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Hasta"
+                                                                       Text="{Binding Path=Mi_l_h, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                        </StackPanel>
+                                        <TextBlock Grid.Column="0"
+                                                   Grid.Row="4"
+                                                   Margin="0 5"
+                                                   Text="Jue."
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontWeight="SemiBold"/>
+                                        <StackPanel Grid.Column="1"
+                                                    Grid.Row="4"
+                                                    Margin="0 5"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Desde"
+                                                                       Text="{Binding Path=Ju_m_d, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                            <Separator Background="{StaticResource PrimaryHueMidBrush}"
+                                                       Width="5"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3 0">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="2"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Hasta"
+                                                                       Text="{Binding Path=Ju_m_h, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2"
+                                                    Grid.Row="4"
+                                                    Margin="0 5"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Desde"
+                                                                       Text="{Binding Path=Ju_l_d, Mode=TwoWay, StringFormat=h\\:mm}"                                                                       
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                            <Separator Background="{StaticResource PrimaryHueMidBrush}"
+                                                       Width="5"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3 0">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="2"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Hasta"
+                                                                       Text="{Binding Path=Ju_l_h, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                        </StackPanel>
+                                        <TextBlock Grid.Column="0"
+                                                   Grid.Row="5"
+                                                   Margin="0 5"
+                                                   Text="Vie."
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontWeight="SemiBold"/>
+                                        <StackPanel Grid.Column="1"
+                                                    Grid.Row="5"
+                                                    Margin="0 5"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Desde"
+                                                                       Text="{Binding Path=Vi_m_d, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                            <Separator Background="{StaticResource PrimaryHueMidBrush}"
+                                                       Width="5"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3 0">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="2"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Hasta"
+                                                                       Text="{Binding Path=Vi_m_h, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2"
+                                                    Grid.Row="5"
+                                                    Margin="0 5"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Desde"
+                                                                       Text="{Binding Path=Vi_l_d, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                            <Separator Background="{StaticResource PrimaryHueMidBrush}"
+                                                       Width="5"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3 0">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="2"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Hasta"
+                                                                       Text="{Binding Path=Vi_l_h, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                        </StackPanel>
+                                        <TextBlock Grid.Column="0"
+                                                   Grid.Row="6"
+                                                   Margin="0 5"
+                                                   Text="Sáb."
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontWeight="SemiBold"/>
+                                        <StackPanel Grid.Column="1"
+                                                    Grid.Row="6"
+                                                    Margin="0 5"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Desde"
+                                                                       Text="{Binding Path=Sa_m_d, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                            <Separator Background="{StaticResource PrimaryHueMidBrush}"                                                       
+                                                       Width="5"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3 0">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="2"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Hasta"
+                                                                       Text="{Binding Path=Sa_m_h, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2"
+                                                    Grid.Row="6"
+                                                    Margin="0 5"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Desde"
+                                                                       Text="{Binding Path=Sa_l_d, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                            <Separator Background="{StaticResource PrimaryHueMidBrush}"
+                                                       Width="5"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3 0">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="2"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Hasta"
+                                                                       Text="{Binding Path=Sa_l_h, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                        </StackPanel>
+                                        <TextBlock Grid.Column="0"
+                                                   Grid.Row="7"
+                                                   Margin="0 5 0 0"
+                                                   Text="Dom."
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontWeight="SemiBold"/>
+                                        <StackPanel Grid.Column="1"
+                                                    Grid.Row="7"
+                                                    Margin="0 5 0 0"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Desde"
+                                                                       Text="{Binding Path=Do_m_d, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                            <Separator Background="{StaticResource PrimaryHueMidBrush}"
+                                                       Width="5"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3 0">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="2"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Hasta"
+                                                                       Text="{Binding Path=Do_m_h, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2"
+                                                    Grid.Row="7"
+                                                    Margin="0 5 0 0"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Center">
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Desde"
+                                                                       Text="{Binding Path=Do_l_d, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                            <Separator Background="{StaticResource PrimaryHueMidBrush}"
+                                                       Width="5"
+                                                       VerticalAlignment="Center"
+                                                       Margin="3 0">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleY="2"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Hasta"
+                                                                       Text="{Binding Path=Do_l_h, Mode=TwoWay, StringFormat=h\\:mm}"
+                                                                       KeyDown="TimeVerify"
+                                                                       Is24Hours="True"
+                                                                       Width="60"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </DockPanel>
+                            </TabItem>
+                        </TabControl>
+                    </materialDesign:Card>
+                </StackPanel>
+            </Grid>
+        </materialDesign:DialogHost>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,284 @@
+﻿<UserControl x:Class="WPFApp.Views.UserControls.GlobalLiquidationUC"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:liquidationuc="clr-namespace:WPFApp.Views.UserControls.Liquidation"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFApp.Views.UserControls"
+             mc:Ignorable="d" 
+             
+             d:DesignHeight="580" d:DesignWidth="760">
+    <UserControl.Resources>
+        <CollectionViewSource Source="{Binding Path=SelectEmployees}" 
+                              x:Key="SelectEmployees">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="file_n"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    <StackPanel>
+        <TextBlock Margin="2 0 10 15"
+                   Opacity="0.85"
+                   Height="30"
+                   FontSize="22"
+                   Text="Liquidación global"/>
+        <materialDesign:DialogHost Margin="2 0"
+                                   IsOpen="{Binding Path=GlobalLoadingDialog}">
+            <materialDesign:DialogHost.DialogContent>
+                <DockPanel Width="125" Height="125">
+                    <TextBlock DockPanel.Dock="Bottom"
+                               Text="{Binding Path=TextGlobalLoadingDialog, Mode=OneTime}"
+                               FontWeight="SemiBold"
+                               Margin="0 0 0 15"
+                               TextAlignment="Center"/>
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                 IsIndeterminate="True"
+                                 Height="30"      
+                                 Width="30"
+                                 Foreground="{StaticResource SecondaryAccentBrush}"/>
+                </DockPanel>
+            </materialDesign:DialogHost.DialogContent>
+            <materialDesign:DialogHost IsOpen="{Binding Path=GlobalAlertDialog}">
+                <materialDesign:DialogHost.DialogContent>
+                    <DockPanel Width="250"
+                               Height="150">
+                        <materialDesign:PackIcon DockPanel.Dock="Top"
+                                                 HorizontalAlignment="Center"
+                                                 Margin="0 10 0 0"
+                                                 Kind="CheckCircle"
+                                                 Width="35"
+                                                 Foreground="#689F38"
+                                                 Height="35"/>
+                        <Button DockPanel.Dock="Bottom"
+                                Content="ACEPTAR"
+                                Width="125"
+                                Height="45"
+                                Click="Accept"
+                                Foreground="{StaticResource SecondaryAccentBrush}"
+                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                Style="{StaticResource MaterialDesignFlatButton}">
+                        </Button>
+                        <TextBlock TextAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontWeight="SemiBold"
+                                   FontSize="14">
+                            ¡La liquidación se realizó
+                            <LineBreak />
+                            con éxito!
+                        </TextBlock>
+                    </DockPanel>
+                </materialDesign:DialogHost.DialogContent>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>                                 
+                    <liquidationuc:LiquidationHeaderUC Grid.Row="0"
+                                                       Margin="0 0 0 5"/>
+                    <materialDesign:Card Grid.Row="1"
+                                         Margin="0 5 0 0"
+                                         Height="427"
+                                         Background="#F5F5F5"                                     
+                                         materialDesign:ShadowAssist.ShadowDepth="Depth2">                        
+                        <TabControl Name="TabControl" 
+                                    IsEnabled="{Binding Path=LiquidationEnabled, Mode=OneTime}"
+                                    SelectionChanged="TabSelectionChanged"
+                                    SelectedIndex="{Binding Path=TabIndex, Mode=TwoWay}"
+                                    TabStripPlacement="Left">
+                            <TabItem Width="105"
+                                     Header="PARÁMETROS">
+                                <Grid Margin="15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <DockPanel Grid.Column="0"
+                                               Margin="0 0 10 0">
+                                        <TextBlock DockPanel.Dock="top"
+                                                   Text="Empleados"
+                                                   Margin="0 0 0 5"
+                                                   FontSize="15"
+                                                   FontWeight="SemiBold"
+                                                   HorizontalAlignment="Center"/>
+                                        <Separator DockPanel.Dock="top"
+                                                   Background="{StaticResource SecondaryAccentBrush}"
+                                                   Width="50"
+                                                   Margin="0 0 0 20">
+                                            <Separator.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform ScaleY="3"/>
+                                                    <SkewTransform/>
+                                                    <RotateTransform/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </Separator.RenderTransform>
+                                        </Separator>
+                                        <DockPanel DockPanel.Dock="top">
+                                            <RadioButton Name="NoEmployees"
+                                                         DockPanel.Dock="Left"
+                                                         IsChecked="{Binding Path=ShowNoEmployees, Mode=TwoWay}"
+                                                         FontSize="12"
+                                                         Content="No liquidados">
+                                                <RadioButton.Resources>
+                                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#D32F2F"/>
+                                                </RadioButton.Resources>
+                                            </RadioButton>
+                                            <RadioButton Name="AllEmployees"
+                                                         DockPanel.Dock="Right"
+                                                         IsChecked="{Binding Path=ShowAllEmployees, Mode=TwoWay}"
+                                                         FontSize="12"
+                                                         Content="Todos">
+                                                <RadioButton.Resources>
+                                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#D32F2F"/>
+                                                </RadioButton.Resources>
+                                            </RadioButton>
+                                            <RadioButton Name="YesEmployees"
+                                                         FontSize="12"
+                                                         IsChecked="{Binding Path=ShowYesEmployees, Mode=TwoWay}"
+                                                         Content="Liquidados"
+                                                         HorizontalAlignment="Center">
+                                                <RadioButton.Resources>
+                                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#D32F2F"/>
+                                                </RadioButton.Resources>
+                                            </RadioButton>
+                                        </DockPanel>
+                                        <Border BorderThickness="1"
+                                                Margin="0 10 0 0" 
+                                                BorderBrush="{StaticResource BorderContent}">
+                                            <ListView Name="EmployeesList"
+                                                      materialDesign:DataGridAssist.ColumnHeaderPadding="5"
+                                                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                                      ItemsSource="{Binding Source={StaticResource SelectEmployees}, Mode=OneWay}"
+                                                      SelectionChanged="EmployeesListSelectionChanged"
+                                                      SelectionMode="Multiple">
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                                                        <Setter Property="Focusable" Value="false"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=state}" Value="true">
+                                                                <Setter Property="IsSelected" Value="true" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ListView.ItemContainerStyle>
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridView.Columns>
+                                                            <GridViewColumn>
+                                                                <GridViewColumn.Header>
+                                                                    <CheckBox IsChecked="{Binding Path=CheckAllEmployees, Mode=TwoWay}">
+                                                                        <CheckBox.Resources>
+                                                                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#D32F2F"/>
+                                                                        </CheckBox.Resources>
+                                                                    </CheckBox>
+                                                                </GridViewColumn.Header>
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=DataContext.state}">
+                                                                            <CheckBox.Resources>
+                                                                                <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#D32F2F"/>
+                                                                            </CheckBox.Resources>
+                                                                        </CheckBox>
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn Header="Legajo"
+                                                                            Width="60"
+                                                                            DisplayMemberBinding="{Binding Path=file_n}"/>
+                                                            <GridViewColumn Header="Empleado"
+                                                                            DisplayMemberBinding="{Binding Path=fullname}"
+                                                                            Width="200"/>
+                                                        </GridView.Columns>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                        </Border>                                        
+                                    </DockPanel>
+                                    <DockPanel Grid.Column="1"
+                                               Margin="10 0 0 0">
+                                        <TextBlock DockPanel.Dock="top"
+                                                   Text="Conceptos"
+                                                   Margin="0 0 0 5"
+                                                   FontSize="15"
+                                                   FontWeight="SemiBold"
+                                                   HorizontalAlignment="Center"/>
+                                        <Separator DockPanel.Dock="top"
+                                                   Background="{StaticResource SecondaryAccentBrush}"
+                                                   Width="50"
+                                                   Margin="0 0 0 20">
+                                            <Separator.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform ScaleY="3"/>
+                                                    <SkewTransform/>
+                                                    <RotateTransform/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </Separator.RenderTransform>
+                                        </Separator>
+                                        <Border BorderThickness="1"
+                                                BorderBrush="{StaticResource BorderContent}">
+                                            <ListView ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                                      materialDesign:DataGridAssist.ColumnHeaderPadding="5"
+                                                      ItemsSource="{Binding Path=ConceptsNotCommons, Mode=OneTime}"
+                                                      SelectedItem="{x:Null}"
+                                                      SelectionMode="Multiple">
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                                                        <Setter Property="Focusable" Value="false"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=selected}" Value="true">
+                                                                <Setter Property="IsSelected" Value="true" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ListView.ItemContainerStyle>
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridView.Columns>
+                                                            <GridViewColumn>
+                                                                <GridViewColumn.Header>
+                                                                    <CheckBox IsChecked="{Binding Path=CheckAllConcepts, Mode=TwoWay}">
+                                                                        <CheckBox.Resources>
+                                                                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#D32F2F"/>
+                                                                        </CheckBox.Resources>
+                                                                    </CheckBox>
+                                                                </GridViewColumn.Header>
+                                                                <GridViewColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=DataContext.selected, Mode=TwoWay}">
+                                                                            <CheckBox.Resources>
+                                                                                <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#D32F2F"/>
+                                                                            </CheckBox.Resources>
+                                                                        </CheckBox>
+                                                                    </DataTemplate>
+                                                                </GridViewColumn.CellTemplate>
+                                                            </GridViewColumn>
+                                                            <GridViewColumn Header="ID"
+                                                                            Width="35"
+                                                                            DisplayMemberBinding="{Binding Path=sorted_concept_id}"/>
+                                                            <GridViewColumn Header="Concepto"
+                                                                            DisplayMemberBinding="{Binding Path=concept}"
+                                                                            Width="155"/>
+                                                            <GridViewColumn Header="Tipo"
+                                                                            DisplayMemberBinding="{Binding Path=Concept_types.concept_type_initials}"/>
+                                                        </GridView.Columns>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                        </Border>
+                                    </DockPanel>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Name="TabItem"
+                                     Header="LIQUIDACIÓN">
+                                <liquidationuc:LiquidationUC x:Name="LiquidationUC"/>
+                            </TabItem>
+                        </TabControl>
+                    </materialDesign:Card>
+                </Grid>
+            </materialDesign:DialogHost>
+        </materialDesign:DialogHost>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,670 @@
+﻿<UserControl x:Class="WPFApp.Views.UserControls.ScheduleUC"
+             xmlns:dialog="clr-namespace:WPFApp.Views.UserControls.Dialogs"
+             xmlns:helper="clr-namespace:WPFApp.Helper"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFApp.Views.UserControls"
+             mc:Ignorable="d"              
+             
+             d:DesignHeight="580" d:DesignWidth="760">
+    <UserControl.Resources>
+        <Style x:Key="CellStyle" TargetType="DataGridCell" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="IsEditing" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid Background="{TemplateBinding Background}">                            
+                            <StackPanel Height="{TemplateBinding Height}"
+                                        Width="{TemplateBinding Width}"
+                                        Visibility="{Binding Path=(helper:CustomProperties.Visibility), RelativeSource={RelativeSource TemplatedParent}}">
+                                <Separator Background="#FFEF5350"
+                                           RenderTransformOrigin="0.5,0.5">
+                                    <Separator.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform Angle="45"/>
+                                            <TranslateTransform Y="18" X="0"/>
+                                        </TransformGroup>
+                                    </Separator.RenderTransform>
+                                </Separator>
+                                <Separator Background="#FFEF5350"
+                                           RenderTransformOrigin="0.5,0.5">
+                                    <Separator.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform Angle="45"/>
+                                            <TranslateTransform Y="13" X="20"/>
+                                        </TransformGroup>
+                                    </Separator.RenderTransform>
+                                </Separator>
+                                <Separator Background="#FFEF5350"
+                                           RenderTransformOrigin="0.5,0.5">
+                                    <Separator.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform Angle="45"/>
+                                            <TranslateTransform Y="8" X="40"/>
+                                        </TransformGroup>
+                                    </Separator.RenderTransform>
+                                </Separator>
+                                <Separator Background="#FFEF5350"
+                                           RenderTransformOrigin="0.5,0.5">
+                                    <Separator.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform Angle="45"/>
+                                            <TranslateTransform Y="3" X="-20"/>
+                                        </TransformGroup>
+                                    </Separator.RenderTransform>
+                                </Separator>
+                                <Separator Background="#FFEF5350"
+                                           RenderTransformOrigin="0.5,0.5">
+                                    <Separator.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform Angle="45"/>
+                                            <TranslateTransform Y="-2" X="-40"/>
+                                        </TransformGroup>
+                                    </Separator.RenderTransform>
+                                </Separator>
+                            </StackPanel>
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Background" Value="{StaticResource DataGridSelection}"/>
+                    <Setter Property="Foreground" Value="{StaticResource DataGridSelection}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Name="HeaderStyle" TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+            <Setter Property="HorizontalContentAlignment"
+                 Value="Center" />
+        </Style>
+    </UserControl.Resources>
+    <StackPanel>
+        <TextBlock Margin="2 0 10 15"
+                   Opacity="0.85"
+                   Height="30"
+                   FontSize="22"
+                   Text="Horarios"/>
+        <materialDesign:DialogHost Name="Loading"
+                                   Margin="2 0"
+                                   IsOpen="{Binding Path=LoadingDialog}">
+            <materialDesign:DialogHost.DialogContent>
+                <DockPanel Width="125" Height="125">
+                    <TextBlock DockPanel.Dock="Bottom"
+                               Text="{Binding Path=TextLoadingDialog, Mode=OneWay}"
+                               FontWeight="SemiBold"
+                               Margin="0 0 0 15"
+                               TextAlignment="Center"/>
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                 IsIndeterminate="True"
+                                 Height="30"      
+                                 Width="30"
+                                 Foreground="{StaticResource SecondaryAccentBrush}"/>
+                </DockPanel>
+            </materialDesign:DialogHost.DialogContent>
+            <materialDesign:DialogHost IsOpen="{Binding Path=ExportDialog}"
+                                       DialogClosing="ClearChecks">
+                <materialDesign:DialogHost.DialogContent>
+                    <StackPanel Margin="20">
+                        <CheckBox Name="EHR"
+                                  Content="Incluir horarios fijos"
+                                  FontSize="11"
+                                  IsChecked="{Binding Path=ExportHF, Mode=OneWayToSource}">
+                            <CheckBox.Resources>
+                                <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#D32F2F"/>
+                            </CheckBox.Resources>
+                        </CheckBox>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    Margin="0 15 0 0">
+                            <Button Height="40"
+                                    Width="40"
+                                    Padding="0"
+                                    ToolTip="Imprimir"
+                                    Command="{Binding Path=Print}"
+                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                <materialDesign:PackIcon Kind="Printer"
+                                                         Width="30"
+                                                         Height="30"/>
+                            </Button>
+                            <Button Height="40"
+                                    Width="40"
+                                    Padding="0"
+                                    ToolTip="Exportar"
+                                    Command="{Binding Path=Export}"
+                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                <materialDesign:PackIcon Kind="FileExport"
+                                                         Width="27"
+                                                         Height="27"/>
+                            </Button>
+                            <Rectangle VerticalAlignment="Stretch"
+                                       Width="1"
+                                       Margin="5 0" 
+                                       Height="25"
+                                       Stroke="{StaticResource PrimaryHueMidBrush}"/>
+                            <Button Height="40"
+                                    Width="40"
+                                    Padding="0"
+                                    ToolTip="Cerrar"
+                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                <materialDesign:PackIcon Kind="Close"
+                                                         Foreground="#E53935"
+                                                         Width="30"
+                                                         Height="30"/>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:DialogHost.DialogContent>
+                <materialDesign:DialogHost IsOpen="{Binding Path=AlertDialog}">
+                    <materialDesign:DialogHost.DialogContent>
+                        <DockPanel Width="250"
+                                   Height="150">
+                            <materialDesign:PackIcon DockPanel.Dock="Top"
+                                                     HorizontalAlignment="Center"
+                                                     Margin="0 10 0 0"
+                                                     Kind="CheckCircle"
+                                                     Width="35"
+                                                     Foreground="#689F38"
+                                                     Height="35"/>
+                            <Button DockPanel.Dock="Bottom"
+                                    Content="ACEPTAR"
+                                    Width="125"
+                                    Height="45"
+                                    Foreground="{StaticResource SecondaryAccentBrush}"
+                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                    Style="{StaticResource MaterialDesignFlatButton}">
+                            </Button>
+                            <TextBlock Text="¡Exportado con éxito!"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontWeight="SemiBold"
+                                       FontSize="14"/>
+                        </DockPanel>
+                    </materialDesign:DialogHost.DialogContent>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:Card Name="Search"
+                                             materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                             Grid.Row="0"
+                                             Width="154"
+                                             Height="535"
+                                             Margin="0 0 5 0">
+                            <Grid Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <DockPanel Grid.Row="0">
+                                    <TextBlock DockPanel.Dock="top"
+                                               Text="Turnos"
+                                               Margin="0 0 0 5"
+                                               FontSize="15"
+                                               FontWeight="SemiBold"
+                                               HorizontalAlignment="Center"/>
+                                    <Separator DockPanel.Dock="top"
+                                               Background="{StaticResource SecondaryAccentBrush}"
+                                               Width="20">
+                                        <Separator.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleY="3"/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </Separator.RenderTransform>
+                                    </Separator>
+                                    <Border Margin="0 10 0 0"
+                                            BorderThickness="1"
+                                            BorderBrush="{StaticResource BorderContent}">
+                                        <ListView Name="Turns"
+                                                  IsSynchronizedWithCurrentItem="True"
+                                                  materialDesign:DataGridAssist.ColumnHeaderPadding="3"  
+                                                  FontSize="10"
+                                                  ItemsSource="{Binding Path=Turns, Mode=OneTime}"    
+                                                  SelectedValuePath="turn_id"
+                                                  SelectedValue="{Binding Path=TurnId, Mode=TwoWay}"
+                                                  SelectionMode="Single">
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                                                    <Setter Property="Background" Value="{Binding color}" />
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="ListBoxItem">
+                                                                <Border x:Name="border"
+                                                                        Padding="0 5"
+                                                                        Background="{TemplateBinding Background}"
+                                                                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                                                        BorderThickness="0"
+                                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                                                    <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter Property="Background" Value="{Binding color}" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="{Binding color}" />
+                                                            <Setter Property="Opacity" Value=".8"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridView.Columns>
+                                                        <GridViewColumn Header="Mañana"
+                                                                        Width="70"
+                                                                        DisplayMemberBinding="{Binding morning}"/>
+                                                        <GridViewColumn Header="Tarde"
+                                                                        DisplayMemberBinding="{Binding late}"
+                                                                        Width="70"/>
+                                                    </GridView.Columns>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </Border>
+                                </DockPanel>
+                                <DockPanel Grid.Row="1">
+                                    <TextBlock DockPanel.Dock="top"
+                                               Text="Feriados"
+                                               Margin="0 10 0 5"
+                                               FontSize="15"
+                                               FontWeight="SemiBold"
+                                               HorizontalAlignment="Center"/>
+                                    <Separator DockPanel.Dock="top"
+                                               Background="{StaticResource SecondaryAccentBrush}"
+                                               Width="20">
+                                        <Separator.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleY="3"/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </Separator.RenderTransform>
+                                    </Separator>
+                                    <Grid DockPanel.Dock="Top"
+                                          Margin="0 5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <DockPanel Grid.Column="0">
+                                            <TextBox DockPanel.Dock="Left"
+                                                     MaxLength="2"
+                                                     Margin="0 0 5 0"
+                                                     KeyDown="NumberVerify"
+                                                     Text="{Binding Day, Mode=TwoWay, TargetNullValue='', UpdateSourceTrigger=PropertyChanged}"
+                                                     materialDesign:HintAssist.Hint="Día "
+                                                     FontSize="10"/>
+                                            <TextBox MaxLength="15"
+                                                     Margin="5 0"
+                                                     Text="{Binding Description, Mode=TwoWay}"
+                                                     materialDesign:HintAssist.Hint="Descripción"
+                                                     FontSize="10"/>
+                                        </DockPanel>
+                                        <StackPanel Grid.Column="1"
+                                                    Orientation="Horizontal">
+                                            <Button Height="20"
+                                                    Width="20"
+                                                    Padding="0"
+                                                    ToolTip="Agregar"
+                                                    Background="White"
+                                                    Command="{Binding NewHoliday}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                                <Button.Resources>
+                                                    <SolidColorBrush x:Key="MaterialDesignFlatButtonClick" Color="Transparent"/>
+                                                </Button.Resources>
+                                                <materialDesign:PackIcon Kind="ArrowRight" 
+                                                                         Width="20"
+                                                                         Height="20"/>
+                                            </Button>
+                                            <Rectangle VerticalAlignment="Stretch"
+                                                       Width="1"
+                                                       Margin="1 0" 
+                                                       Height="15"
+                                                       Stroke="{StaticResource PrimaryHueMidBrush}" />
+                                            <Button Height="20"
+                                                    Width="20"
+                                                    Padding="0"
+                                                    ToolTip="Agregar"
+                                                    Background="White"
+                                                    Command="{Binding DeleteHoliday}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                                <Button.Resources>
+                                                    <SolidColorBrush x:Key="MaterialDesignFlatButtonClick" Color="Transparent"/>
+                                                </Button.Resources>
+                                                <materialDesign:PackIcon Kind="Minus" 
+                                                                         Width="20"
+                                                                         Height="20"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <DataGrid IsReadOnly="True"
+                                              SelectionMode="Single"
+                                              CanUserAddRows="False"
+                                              CanUserDeleteRows="False"
+                                              CanUserResizeColumns="False"
+                                              CanUserResizeRows="False"
+                                              AutoGenerateColumns="False"  
+                                              materialDesign:DataGridAssist.ColumnHeaderPadding="3" 
+                                              materialDesign:DataGridAssist.CellPadding="0 3" 
+                                              BorderThickness="1"
+                                              ItemsSource="{Binding Holidays, Mode=OneWay}"
+                                              SelectedValuePath="day"
+                                              SelectedValue="{Binding HolidayDay, Mode=OneWayToSource}"
+                                              BorderBrush="{StaticResource BorderContent}"
+                                              Background="Transparent">
+                                        <DataGrid.CellStyle>
+                                            <Style TargetType="DataGridCell" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                                                <Setter Property="BorderThickness" Value="0"/>
+                                            </Style>
+                                        </DataGrid.CellStyle>
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Width="0.23*"
+                                                                FontSize="10"
+                                                                Binding="{Binding day}">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="Día" FontSize="10"/>
+                                                </DataGridTextColumn.Header>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn FontSize="10"
+                                                                Binding="{Binding description}"
+                                                                Width="*">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="Descripción" FontSize="10"/>
+                                                </DataGridTextColumn.Header>
+                                            </DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </DockPanel>
+                                <StackPanel Grid.Row="2">
+                                    <Separator Background="{StaticResource SecondaryAccentBrush}"
+                                               Width="75"
+                                               Margin="0 10">
+                                        <Separator.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleY="3"/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </Separator.RenderTransform>
+                                    </Separator>
+                                    <Button Margin="0 0 0 5"
+                                            Command="{Binding Clear}"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="Clear"
+                                                                         Width="20"
+                                                                         Height="20"
+                                                                         Margin="0 0 5 0"/>
+                                                <TextBlock Text="LIMPIAR"
+                                                           VerticalAlignment="Bottom"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Padding="0"
+                                            Margin="0 5"
+                                            BorderBrush="#FFECEFF1"
+                                            Background="#FFECEFF1" 
+                                            Command="{Binding FixedSchedule}"
+                                            Style="{StaticResource MaterialDesignRaisedButton}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="Add"
+                                                                         Width="20"
+                                                                         Height="20"
+                                                                         Margin="0 0 5 0"/>
+                                                <TextBlock Text="HORARIO FIJO"
+                                                           VerticalAlignment="Bottom"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Padding="0"
+                                            Margin="0 5 0 0"
+                                            BorderBrush="#FFFFF59D"
+                                            Background="#FFFFF59D" 
+                                            Command="{Binding Vacations}"
+                                            Style="{StaticResource MaterialDesignRaisedButton}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="Add"
+                                                                         Width="20"
+                                                                         Height="20"
+                                                                         Margin="0 0 5 0"/>
+                                                <TextBlock Text="VACACIONES"
+                                                           VerticalAlignment="Bottom"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                        <materialDesign:DialogHost Grid.Column="1"
+                                                   Margin="5 0 0 0"
+                                                   DialogOpened="DialogOpened"                                       
+                                                   DialogClosing="DialogClosing"
+                                                   IsOpen="{Binding Path=ConfirmDialog}">
+                            <materialDesign:DialogHost.DialogContent>
+                                <dialog:ConfirmUC/>
+                            </materialDesign:DialogHost.DialogContent>
+                            <StackPanel>
+                                <materialDesign:Card Margin="0 0 0 2"
+                                                     materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                                    <Grid Margin="5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0"
+                                                    Orientation="Horizontal">
+                                            <StackPanel Name="Confirm"
+                                                        Orientation="Horizontal"
+                                                        IsEnabled="False"
+                                                        Margin="0 0 10 0">
+                                                <Button Height="30"
+                                                        Width="30"
+                                                        Padding="0"
+                                                        ToolTip="Confirmar" 
+                                                        Command="{Binding Path=Apply}"
+                                                        Click="Apply"
+                                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                                    <materialDesign:PackIcon Kind="Check"
+                                                                             Foreground="#689F38"
+                                                                             Width="30"
+                                                                             Height="30"/>
+                                                </Button>
+                                                <Button Height="30"
+                                                        Width="30"
+                                                        Padding="0"
+                                                        ToolTip="Cancelar"
+                                                        Command="{Binding Path=Cancel}"
+                                                        Click="Cancel"
+                                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                                    <materialDesign:PackIcon Kind="Clear"
+                                                                             Foreground="#E53935"
+                                                                             Width="30"
+                                                                             Height="30"/>
+                                                </Button>
+                                            </StackPanel>
+                                            <StackPanel Name="Controls"
+                                                        Orientation="Horizontal"
+                                                        Margin="10 0 0 0">
+                                                <Button Height="30"
+                                                        Width="30"
+                                                        Padding="0"
+                                                        ToolTip="Anterior"
+                                                        Command="{Binding Path=Previous}"
+                                                        Click="Previous"
+                                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                                    <materialDesign:PackIcon Kind="KeyboardArrowLeft"
+                                                                             Width="30"
+                                                                             Height="30"/>
+                                                </Button>
+                                                <Button Height="30"
+                                                        Width="30"
+                                                        Padding="0"
+                                                        ToolTip="Siguiente"
+                                                        Command="{Binding Path=Next}"
+                                                        Click="Next"
+                                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                                    <materialDesign:PackIcon Kind="KeyboardArrowRight"
+                                                                             Width="30"
+                                                                             Height="30"/>
+                                                </Button>
+                                                <Rectangle VerticalAlignment="Stretch"
+                                                           Width="1"
+                                                           Margin="5 0" 
+                                                           Height="25"
+                                                           Stroke="{StaticResource PrimaryHueMidBrush}" />
+                                                <Button Height="30"
+                                                        Width="30"
+                                                        Padding="0"
+                                                        ToolTip="Agregar"
+                                                        Command="{Binding Path=New}"
+                                                        Click="NewOrUpdate"
+                                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                                    <materialDesign:PackIcon Kind="Add"
+                                                                             Width="30"
+                                                                             Foreground="#689F38"
+                                                                             Height="30"/>
+                                                </Button>
+                                                <Button Height="30"
+                                                        Width="30"
+                                                        Padding="0"
+                                                        ToolTip="Modificar"
+                                                        Command="{Binding Path=Update}"
+                                                        Click="NewOrUpdate"
+                                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                                    <materialDesign:PackIcon Kind="Pencil"
+                                                                             Foreground="#FBC02D"
+                                                                             Width="25"
+                                                                             Height="25"/>
+                                                </Button>
+                                                <Button Height="30"
+                                                        Width="30"
+                                                        Padding="0"
+                                                        ToolTip="Eliminar"
+                                                        Command="{Binding Path=OpenConfirmDialog}"
+                                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                                    <materialDesign:PackIcon Kind="Delete"
+                                                                             Foreground="#E53935"
+                                                                             Width="25"
+                                                                             Height="25"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Right">
+                                            <TextBlock Name="Month"
+                                                       Text="{Binding Path=Month, Mode=OneWay}"
+                                                       FontSize="20"
+                                                       FontWeight="SemiBold"/>
+                                            <Rectangle VerticalAlignment="Stretch"
+                                                       Width="1"
+                                                       Margin="5 0" 
+                                                       Height="25"
+                                                       Stroke="{StaticResource PrimaryHueMidBrush}" />
+                                            <Button Name="Export"
+                                                    Height="30"
+                                                    Width="30"
+                                                    Padding="0"
+                                                    ToolTip="Exportar"
+                                                    Command="{Binding Path=OpenExportDialog}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                                <materialDesign:PackIcon Kind="Export"
+                                                                         Width="25"
+                                                                         Height="25"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+                                <materialDesign:Card Name="Data"
+                                                     Margin="0 2 0 0"
+                                                     Height="491"
+                                                     materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                                    <DockPanel>
+                                        <helper:DataGridHelper x:Name="DataGrid" 
+                                                               IsEnabled="False"
+                                                               HeadersVisibility="All"
+                                                               SelectionUnit="Cell"
+                                                               RowHeaderWidth="135"
+                                                               IsReadOnly="True"
+                                                               CanUserAddRows="False"
+                                                               CanUserDeleteRows="False"
+                                                               CanUserResizeColumns="False"
+                                                               CanUserResizeRows="False"
+                                                               AutoGenerateColumns="False" 
+                                                               ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                                               materialDesign:DataGridAssist.ColumnHeaderPadding="0 5"  
+                                                               materialDesign:DataGridAssist.CellPadding="0"
+                                                               ItemsSource="{Binding Calendars}"
+                                                               SelectedCells="{Binding SelectedDays, Mode=OneWayToSource}"
+                                                               Style="{StaticResource MaterialDesignDataGrid}"
+                                                               Background="Transparent">
+                                            <DataGrid.RowStyle>
+                                                <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="Transparent" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter Property="Background" Value="Transparent" />
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGrid.RowStyle>
+                                            <DataGrid.RowHeaderStyle>
+                                                <Style TargetType="{x:Type DataGridRowHeader}" BasedOn="{StaticResource MaterialDesignDataGridRowHeader}">
+                                                    <Setter Property="Background" Value="#F5F5F5"/>
+                                                </Style>
+                                            </DataGrid.RowHeaderStyle>
+                                            <DataGrid.RowHeaderTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Path=DataContext.Employees.fullname, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridRow}}"
+                                                               FontSize="11"
+                                                               Margin="5 0 0 0"/>
+                                                </DataTemplate>
+                                            </DataGrid.RowHeaderTemplate>
+                                        </helper:DataGridHelper>
+                                    </DockPanel>
+                                </materialDesign:Card>
+                            </StackPanel>
+                        </materialDesign:DialogHost>
+                    </Grid>
+                </materialDesign:DialogHost>
+            </materialDesign:DialogHost>
+        </materialDesign:DialogHost>
+    </StackPanel>
+</UserControl>

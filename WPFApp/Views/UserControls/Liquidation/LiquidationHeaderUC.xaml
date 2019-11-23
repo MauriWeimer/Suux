@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="WPFApp.Views.UserControls.Liquidation.LiquidationHeaderUC"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFApp.Views.UserControls.Liquidation"
+             mc:Ignorable="d">
+    <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1">
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ComboBox HorizontalAlignment="Left"
+                      Width="350"
+                      ItemsSource="{Binding Path=LiquidationFixedDatas, Mode=OneTime}"
+                      SelectedValuePath="liquidation_fixed_data_id"
+                      DisplayMemberPath="fullliquidationfixeddata"
+                      SelectedIndex="0"
+                      SelectedValue="{Binding Path=LiquidationFixedDataId, Mode=OneWayToSource}"
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <materialDesign:HintAssist.Hint>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="GpsFixed" />
+                        <TextBlock Text="Dato fijo"
+                                   Margin="5 0"/>
+                    </StackPanel>
+                </materialDesign:HintAssist.Hint>
+            </ComboBox>
+            <StackPanel Grid.Column="1"
+                        Margin="8 0 0 0">
+                <StackPanel Margin="0 8 0 0"
+                            Orientation="Horizontal">
+                    <TextBlock Text="Periodo:"
+                               FontWeight="SemiBold"
+                               FontSize="15"
+                               Margin="0 0 10 0"/>
+                    <TextBlock Text="{Binding Path=PeriodS, Mode=OneWay}"
+                               FontSize="15"
+                               Margin="0 0 40 0"/>
+                </StackPanel>
+                <StackPanel Margin="0 8 0 0"
+                            Orientation="Horizontal">
+                    <TextBlock Text="Tipo:"
+                               FontSize="15"
+                               FontWeight="SemiBold"
+                               Margin="0 0 10 0"/>
+                    <TextBlock Text="{Binding Path=LiquidationTypeS, Mode=OneWay}"
+                               FontSize="15"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </materialDesign:Card>
+</UserControl>
